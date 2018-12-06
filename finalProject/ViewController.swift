@@ -63,7 +63,7 @@ class ViewController: UIViewController {
             
             if (user != nil) {
                 self.statusLabel.text = "You are in the system"
-                self.performSegue(withIdentifier: "segueOne", sender: nil)
+                self.performSegue(withIdentifier: "pickPoke", sender: nil)
 
             }
             else {
