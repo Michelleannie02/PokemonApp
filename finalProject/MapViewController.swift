@@ -16,7 +16,8 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     var pokemonImageData:UIImage!
     var pokemonName:String!
-    var pokemonStats:String!
+    var pokemonAttack:Int!
+    var pokemonDefense:Int!
     var latitude:String!
     var longitude:String!
     
@@ -142,7 +143,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         
         pokemonImage.image = self.pokemonImageData
         pokemonNameLabel.text = self.pokemonName
-        pokemonStatsLabel.text = self.pokemonStats
+        pokemonStatsLabel.text = "ATT: \(pokemonAttack)  DEF: \(pokemonDefense)"
         
         loadPokemonImages()
         
@@ -207,14 +208,14 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        var battleViewController = segue.destination as! BattleViewController
-        
+        let battleViewController = segue.destination as! BattleViewController
         
         battleViewController.pokemonAttacker = self.pokemonFighter
         battleViewController.pokemonAttackerImage = self.enemyImageData
         
         battleViewController.yourName = self.pokemonName
-        battleViewController.yourStats = self.pokemonStats
+        battleViewController.yourAttack = self.pokemonAttack
+        battleViewController.yourDefense = self.pokemonDefense
         battleViewController.yourImageData = self.pokemonImageData
         
     }

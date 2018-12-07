@@ -33,11 +33,17 @@ class BattleViewController: UIViewController {
     
     var pokemonAttacker:String!
     var pokemonAttackerImage:Data!
+    var pokemonAttackerHP:Int!
+    var enemyAttack:Int!
+    var enemyDefense:Int!
+    
     var pokemonLevel:Int!
     
     var yourName:String!
-    var yourStats:String!
+    var yourAttack:Int!
+    var yourDefense:Int!
     var yourImageData:UIImage!
+    var yourHP:Int!
     
     //MARK: - Default Functiom
     override func viewDidLoad() {
@@ -46,19 +52,28 @@ class BattleViewController: UIViewController {
         //**** TEMP ****
         pokemonLevel = 1
         //**************
+        
         self.navigationItem.setHidesBackButton(true, animated: true)
         
         enemyNameLabel.text = pokemonAttacker
-        let attack = Int.random(in: 12 ... 20)
-        let defense = Int.random(in: 6 ... 10)
-        enemyStatsLabel.text = "ATT: \(attack)  DEF: \(defense)"
+        enemyAttack = Int.random(in: 12 ... 20)
+        enemyDefense = Int.random(in: 6 ... 10)
+        enemyStatsLabel.text = "ATT: \(enemyAttack)  DEF: \(enemyDefense)"
         enemyImage.image = UIImage(data: pokemonAttackerImage)
         
         gameMessageLabel.text = "YOUR MOVE FIRST"
         
         yourNameLabel.text = yourName
-        yourStatsLabel.text = yourStats
+        yourStatsLabel.text = "ATT: \(yourAttack)  DEF: \(yourDefense)"
         yourImage.image = yourImageData!
+        
+        pokemonAttackerHP = 100
+        //**** TEMP ****
+        yourHP = 100
+        //**************
+        
+        enemyHealthLabel.text = "\(self.pokemonAttackerHP)"
+        yourHealthLabel.text = "\(self.yourHP)"
         
         if (pokemonLevel >= 2) {
             upperCutButton.isEnabled = true
@@ -76,6 +91,9 @@ class BattleViewController: UIViewController {
     //MARK: - Actions
     
     @IBAction func onPunchPress(_ sender: Any) {
+        var yourAttack = self.yourAttack - self.enemyDefense
+        gameMessageLabel.text = "YOU HIT FOR \(yourAttack) DAMAGE"
+        
     }
     
     @IBAction func onKickPress(_ sender: Any) {
