@@ -29,6 +29,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         "https://pokeapi.co/api/v2/pokemon/garchomp/",
         "https://pokeapi.co/api/v2/pokemon/rhydon/",
         "https://pokeapi.co/api/v2/pokemon/onix/"]
+    
     var pokemonFighter:String!
     
     //MARK: TODO: CHECK USER INPUT FOR LOCATION
@@ -124,8 +125,9 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        var battleViewController = segue.destination as! BattleViewController
         
-//        BattleViewController.pokemonAttacker = pokemonFighter
+        battleViewController.pokemonAttacker = pokemonFighter
     }
 
 }

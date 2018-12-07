@@ -12,10 +12,12 @@ class BattleViewController: UIViewController {
     
     var pokemonAttacker:String!
 
+    @IBOutlet weak var enemyLabel: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        enemyLabel.text = pokemonAttacker!
     }
     
 
