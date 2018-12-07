@@ -22,6 +22,12 @@ class MapViewController: UIViewController {
     @IBOutlet weak var pokemonNameLabel: UILabel!
     @IBOutlet weak var pokemonStatsLabel: UILabel!
     
+    let fightPokemon = ["https://pokeapi.co/api/v2/pokemon/salamence/",
+        "https://pokeapi.co/api/v2/pokemon/tyranitar/",
+        "https://pokeapi.co/api/v2/pokemon/garchomp/",
+        "https://pokeapi.co/api/v2/pokemon/rhydon/",
+        "https://pokeapi.co/api/v2/pokemon/onix/"]
+    
     //MARK: TODO: CHECK USER INPUT FOR LOCATION
     
     override func viewDidLoad() {
@@ -39,28 +45,67 @@ class MapViewController: UIViewController {
         let centerCoordinate = CLLocationCoordinate2DMake(longitudeValue,latitudeValue)
         
         // 2. Set the "zoom" level                      => span
-        let span = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
+        let span = MKCoordinateSpan(latitudeDelta: 1, longitudeDelta: 1)
         
         // 3. Built the "view" -> (center & zoom)       => region
         let region = MKCoordinateRegion(center: centerCoordinate, span: span)
         
         // 4. Update the map to show your "view"
-        mapView.setRegion(region, animated: true)
+        //mapView.setRegion(region, animated: true)
         
         // add a pin to the map
         // 1. Create a new Pin object (MKPointAnnotation)
+        
+        let random = Int.random(in: 1 ... 2)
+        let random2 = Int.random(in: 1 ... 2)
+        let random3 = Int.random(in: 1 ... 2)
+        let random4 = Int.random(in: 1 ... 2)
+        let random5 = Int.random(in: 1 ... 2)
+
         let pin = MKPointAnnotation()
+        let pin2 = MKPointAnnotation()
+        let pin3 = MKPointAnnotation()
+        let pin4 = MKPointAnnotation()
+        let pin5 = MKPointAnnotation()
+        let pin6 = MKPointAnnotation()
         
         
         // 2. Set the coordinate of the Pin (CLLocationCoordinate)
         let coord = CLLocationCoordinate2DMake(longitudeValue,latitudeValue)
+        let coord2 = CLLocationCoordinate2DMake(longitudeValue-Double(random),latitudeValue-Double(random))
+        let coord3 = CLLocationCoordinate2DMake(longitudeValue-Double(random2),latitudeValue-Double(random2))
+        let coord4 = CLLocationCoordinate2DMake(longitudeValue-Double(random3),latitudeValue-Double(random3))
+        let coord5 = CLLocationCoordinate2DMake(longitudeValue-Double(random4),latitudeValue-Double(random4))
+        let coord6 = CLLocationCoordinate2DMake(longitudeValue-Double(random5),latitudeValue-Double(random5))
+
+
+
+
         pin.coordinate = coord
-        
+        pin2.coordinate = coord2
+        pin3.coordinate = coord3
+        pin4.coordinate = coord4
+        pin5.coordinate = coord5
+        pin6.coordinate = coord6
         // 3. OPTIONAL: add a "bubble/popup"
         pin.title = self.pokemonName
+        pin2.title = "salamence"
+        pin3.title = "tyranitar"
+        pin4.title = "garchomp"
+        pin5.title = "rhydon"
+        pin6.title = "onix"
         
         // 4. Add the pin to the map
         mapView.addAnnotation(pin)
+        mapView.addAnnotation(pin2)
+        mapView.addAnnotation(pin3)
+        mapView.addAnnotation(pin4)
+        mapView.addAnnotation(pin5)
+        mapView.addAnnotation(pin6)
+        print(coord2)
+        print(coord)
+        
+        
     }
     
 
