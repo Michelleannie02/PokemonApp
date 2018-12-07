@@ -443,11 +443,36 @@
                         <outlet property="pokemonImage" destination="9H8-vS-9ZU" id="glA-cI-Pko"/>
                         <outlet property="pokemonNameLabel" destination="3KY-Kq-57p" id="j52-p4-mea"/>
                         <outlet property="pokemonStatsLabel" destination="BPs-d6-qDB" id="mGI-yB-9hf"/>
+                        <segue destination="XCS-TM-yi1" kind="show" identifier="battle" id="yKv-lI-g1H"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="k4T-uJ-zg7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2439.130434782609" y="18.75"/>
+        </scene>
+        <!--Battle View Controller-->
+        <scene sceneID="qbM-gF-b8R">
+            <objects>
+                <viewController id="XCS-TM-yi1" customClass="BattleViewController" customModule="finalProject" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="qUs-Vg-MhB">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QKJ-dg-cwN">
+                                <rect key="frame" x="20" y="114" width="344" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="aha-wN-HoS"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="blW-4E-GIE" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3200.0000000000005" y="15.401785714285714"/>
         </scene>
     </scenes>
 </document>

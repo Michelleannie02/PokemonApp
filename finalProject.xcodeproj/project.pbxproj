@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		067BF7FD21BA466400DFB1E4 /* BattleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 067BF7FC21BA466400DFB1E4 /* BattleViewController.swift */; };
 		06BC624121B984A5002BDEEA /* PokemonSelectorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06BC624021B984A5002BDEEA /* PokemonSelectorController.swift */; };
 		06E423E521B966A10069EC08 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06E423E421B966A10069EC08 /* AppDelegate.swift */; };
 		06E423E721B966A10069EC08 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06E423E621B966A10069EC08 /* ViewController.swift */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		067BF7FC21BA466400DFB1E4 /* BattleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattleViewController.swift; sourceTree = "<group>"; };
 		06BC624021B984A5002BDEEA /* PokemonSelectorController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonSelectorController.swift; sourceTree = "<group>"; };
 		06E423E121B966A10069EC08 /* finalProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = finalProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		06E423E421B966A10069EC08 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -77,6 +79,7 @@
 				06E423F921B969EA0069EC08 /* GoogleService-Info.plist */,
 				06BC624021B984A5002BDEEA /* PokemonSelectorController.swift */,
 				3641A96D21BA0113001C9B93 /* MapViewController.swift */,
+				067BF7FC21BA466400DFB1E4 /* BattleViewController.swift */,
 			);
 			path = finalProject;
 			sourceTree = "<group>";
@@ -296,6 +299,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				067BF7FD21BA466400DFB1E4 /* BattleViewController.swift in Sources */,
 				06E423E721B966A10069EC08 /* ViewController.swift in Sources */,
 				06E423ED21B966A10069EC08 /* finalProject.xcdatamodeld in Sources */,
 				06E423E521B966A10069EC08 /* AppDelegate.swift in Sources */,

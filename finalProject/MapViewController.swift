@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 
-class MapViewController: UIViewController {
+class MapViewController: UIViewController, MKMapViewDelegate {
     
     var pokemonImageData:UIImage!
     var pokemonName:String!
@@ -22,16 +22,20 @@ class MapViewController: UIViewController {
     @IBOutlet weak var pokemonNameLabel: UILabel!
     @IBOutlet weak var pokemonStatsLabel: UILabel!
     
+    
+    
     let fightPokemon = ["https://pokeapi.co/api/v2/pokemon/salamence/",
         "https://pokeapi.co/api/v2/pokemon/tyranitar/",
         "https://pokeapi.co/api/v2/pokemon/garchomp/",
         "https://pokeapi.co/api/v2/pokemon/rhydon/",
         "https://pokeapi.co/api/v2/pokemon/onix/"]
+    var pokemonFighter:String!
     
     //MARK: TODO: CHECK USER INPUT FOR LOCATION
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        mapView.delegate = self
         
         pokemonImage.image = pokemonImageData
         pokemonNameLabel.text = self.pokemonName
@@ -56,11 +60,11 @@ class MapViewController: UIViewController {
         // add a pin to the map
         // 1. Create a new Pin object (MKPointAnnotation)
         
-        let random = Int.random(in: 1 ... 2)
-        let random2 = Int.random(in: 1 ... 2)
-        let random3 = Int.random(in: 1 ... 2)
-        let random4 = Int.random(in: 1 ... 2)
-        let random5 = Int.random(in: 1 ... 2)
+        let random = Float.random(in: 0.1 ... 0.2)
+        let random2 = Float.random(in: 0.2 ... 0.3)
+        let random3 = Float.random(in: 0.4 ... 0.5)
+        let random4 = Float.random(in: 0.6 ... 0.7)
+        let random5 = Float.random(in: 0.8 ... 0.9)
 
         let pin = MKPointAnnotation()
         let pin2 = MKPointAnnotation()
@@ -105,18 +109,23 @@ class MapViewController: UIViewController {
         print(coord2)
         print(coord)
         
-        
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView)
+    {
+        print("to ehre")
+        if let annotationTitle = view.annotation?.title
+        {
+            print("User tapped on annotation with title: \(annotationTitle!)")
+            print("got")
+        }
+        pokemonFighter = (view.annotation?.title)!
+        self.performSegue(withIdentifier: "battle", sender: nil)
     }
-    */
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+//        BattleViewController.pokemonAttacker = pokemonFighter
+    }
 
 }
