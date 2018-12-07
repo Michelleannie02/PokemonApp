@@ -128,6 +128,8 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         var battleViewController = segue.destination as! BattleViewController
         
         battleViewController.pokemonAttacker = pokemonFighter
+        battleViewController.yourImageData = pokemonImageData
+        
     }
 
 }

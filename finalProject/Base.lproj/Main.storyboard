@@ -357,7 +357,7 @@
                         <outlet property="squirtleLabel" destination="QVi-qk-OyR" id="xBV-ys-EGL"/>
                         <outlet property="squirtleStatsLabel" destination="QVi-qk-OyR" id="NHj-qD-T6f"/>
                         <outlet property="welcomeLabel" destination="pgu-yb-3zg" id="bHM-pD-D8H"/>
-                        <segue destination="pR0-fR-Q3W" kind="show" identifier="segueMap" id="mwf-dO-dhN"/>
+                        <segue destination="YzD-YB-FWS" kind="show" identifier="segueMap" id="1MO-Tb-DuT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sag-Ew-Q8l" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -404,7 +404,7 @@
             </objects>
             <point key="canvasLocation" x="1544.9275362318842" y="18.75"/>
         </scene>
-        <!--Map View Controller-->
+        <!--Battle Map-->
         <scene sceneID="Ni2-cV-qdS">
             <objects>
                 <viewController id="pR0-fR-Q3W" customClass="MapViewController" customModule="finalProject" customModuleProvider="target" sceneMemberID="viewController">
@@ -413,31 +413,34 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9H8-vS-9ZU">
-                                <rect key="frame" x="10" y="41" width="120" height="119"/>
+                                <rect key="frame" x="10" y="100" width="120" height="119"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3KY-Kq-57p">
-                                <rect key="frame" x="150" y="56" width="183" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="Papyrus" family="Papyrus" pointSize="16"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BPs-d6-qDB">
-                                <rect key="frame" x="150" y="112" width="183" height="31"/>
+                                <rect key="frame" x="150" y="168" width="183" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Papyrus" family="Papyrus" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="5nb-rz-zFq">
-                                <rect key="frame" x="0.0" y="168" width="414" height="694"/>
+                                <rect key="frame" x="0.0" y="236" width="414" height="626"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </mapView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3KY-Kq-57p">
+                                <rect key="frame" x="150" y="116" width="183" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="Papyrus" family="Papyrus" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="WvI-HQ-hun"/>
                     </view>
+                    <navigationItem key="navigationItem" title="Battle Map" id="BjO-65-4eb">
+                        <barButtonItem key="rightBarButtonItem" title="Add Pokemon" style="done" id="W5e-kN-v0q"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="mapView" destination="5nb-rz-zFq" id="rQw-Zo-viJ"/>
                         <outlet property="pokemonImage" destination="9H8-vS-9ZU" id="glA-cI-Pko"/>
@@ -448,34 +451,160 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="k4T-uJ-zg7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2439.130434782609" y="18.75"/>
+            <point key="canvasLocation" x="3349.275362318841" y="18.75"/>
         </scene>
-        <!--Battle View Controller-->
+        <!--Battle-->
         <scene sceneID="qbM-gF-b8R">
             <objects>
-                <viewController id="XCS-TM-yi1" customClass="BattleViewController" customModule="finalProject" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Battle" id="XCS-TM-yi1" customClass="BattleViewController" customModule="finalProject" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="qUs-Vg-MhB">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QKJ-dg-cwN">
-                                <rect key="frame" x="20" y="114" width="344" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="ENEMY NAME" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QKJ-dg-cwN">
+                                <rect key="frame" x="86" y="101" width="240" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <fontDescription key="fontDescription" name="Papyrus" family="Papyrus" pointSize="20"/>
+                                <color key="textColor" red="1" green="0.065431795060000006" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jMS-0h-OTq">
+                                <rect key="frame" x="131" y="579" width="150" height="150"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="HP: 67" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WRg-lU-gYU">
+                                <rect key="frame" x="178" y="320" width="56" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="Papyrus" family="Papyrus" pointSize="20"/>
+                                <color key="textColor" red="0.2006082601979616" green="0.76084628807106602" blue="0.20062128854285596" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="HP: 67" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aSz-bB-Znj">
+                                <rect key="frame" x="178" y="540" width="56" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="Papyrus" family="Papyrus" pointSize="20"/>
+                                <color key="textColor" red="0.2006082602" green="0.76084628809999999" blue="0.20062128849999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="GAME MESSAGE" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rM0-ae-gTK">
+                                <rect key="frame" x="92" y="415" width="228" height="66"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="Papyrus" family="Papyrus" pointSize="18"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="57H-gd-ib7">
+                                <rect key="frame" x="114" y="796" width="40" height="43"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="Papyrus" family="Papyrus" pointSize="20"/>
+                                <state key="normal" title="Kick"/>
+                                <connections>
+                                    <action selector="onKickPress:" destination="XCS-TM-yi1" eventType="touchUpInside" id="iRw-r9-75n"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JYb-Az-Sux">
+                                <rect key="frame" x="18" y="795" width="56" height="43"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="Papyrus" family="Papyrus" pointSize="20"/>
+                                <state key="normal" title="Punch"/>
+                                <connections>
+                                    <action selector="onPunchPress:" destination="XCS-TM-yi1" eventType="touchUpInside" id="C5a-rC-VIt"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ce4-f4-Um3">
+                                <rect key="frame" x="191" y="795" width="92" height="43"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="Papyrus" family="Papyrus" pointSize="20"/>
+                                <state key="normal" title="Upper cut"/>
+                                <connections>
+                                    <action selector="onUpperCutPress:" destination="XCS-TM-yi1" eventType="touchUpInside" id="eUM-mo-EXJ"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x6b-AP-GHL">
+                                <rect key="frame" x="309" y="796" width="87" height="43"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="Papyrus" family="Papyrus" pointSize="20"/>
+                                <state key="normal" title="Goat slap"/>
+                                <connections>
+                                    <action selector="onGoatSlapPress:" destination="XCS-TM-yi1" eventType="touchUpInside" id="VH8-vv-05E"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qn5-JE-0bm">
+                                <rect key="frame" x="161" y="838" width="92" height="43"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="Papyrus" family="Papyrus" pointSize="20"/>
+                                <state key="normal" title="Surrender"/>
+                                <connections>
+                                    <action selector="onSurrenderPress:" destination="XCS-TM-yi1" eventType="touchUpInside" id="aEm-WJ-RB7"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="ENEMY STATS" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qua-W3-hTx">
+                                <rect key="frame" x="92" y="130" width="230" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="Papyrus" family="Papyrus" pointSize="20"/>
+                                <color key="textColor" red="1" green="0.065431795060000006" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="YOUR NAME" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o8E-MW-5ns">
+                                <rect key="frame" x="144" y="737" width="124" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="Papyrus" family="Papyrus" pointSize="20"/>
+                                <color key="textColor" red="0.2006082602" green="0.76084628809999999" blue="0.20062128849999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="YOUR STATS" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aeY-3U-GxY">
+                                <rect key="frame" x="144" y="767" width="125" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="Papyrus" family="Papyrus" pointSize="20"/>
+                                <color key="textColor" red="0.2006082602" green="0.76084628809999999" blue="0.20062128849999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1R6-OF-Cl0">
+                                <rect key="frame" x="131" y="162" width="150" height="150"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="aha-wN-HoS"/>
                     </view>
                     <connections>
-                        <outlet property="enemyLabel" destination="QKJ-dg-cwN" id="Eb5-6i-PxF"/>
+                        <outlet property="enemyHealthLabel" destination="WRg-lU-gYU" id="8NR-Qs-Ntv"/>
+                        <outlet property="enemyImage" destination="1R6-OF-Cl0" id="fZe-4i-H2R"/>
+                        <outlet property="enemyNameLabel" destination="QKJ-dg-cwN" id="Oaj-tA-pfQ"/>
+                        <outlet property="enemyStatsLabel" destination="Qua-W3-hTx" id="ZHk-5E-4gR"/>
+                        <outlet property="gameMessageLabel" destination="rM0-ae-gTK" id="Qor-CR-Ioq"/>
+                        <outlet property="goatSlapButton" destination="x6b-AP-GHL" id="MX7-DE-Jff"/>
+                        <outlet property="kickButton" destination="57H-gd-ib7" id="7c0-sU-Nif"/>
+                        <outlet property="punchButton" destination="JYb-Az-Sux" id="FcV-jP-hiY"/>
+                        <outlet property="surrenderButton" destination="Qn5-JE-0bm" id="xLL-cI-Tql"/>
+                        <outlet property="upperCutButton" destination="ce4-f4-Um3" id="Ym9-Hf-Pdm"/>
+                        <outlet property="yourHealthLabel" destination="aSz-bB-Znj" id="vSE-qW-dsP"/>
+                        <outlet property="yourImage" destination="jMS-0h-OTq" id="cjN-EB-BFh"/>
+                        <outlet property="yourNameLabel" destination="o8E-MW-5ns" id="puO-T4-elX"/>
+                        <outlet property="yourStatsLabel" destination="aeY-3U-GxY" id="FdA-Nh-bZF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="blW-4E-GIE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3200.0000000000005" y="15.401785714285714"/>
+            <point key="canvasLocation" x="4110.144927536232" y="15.401785714285714"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="SPE-jW-p5R">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="YzD-YB-FWS" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="oI5-tV-wHy">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="pR0-fR-Q3W" kind="relationship" relationship="rootViewController" id="Jjw-do-8g4"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="PXg-oL-3ed" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2465" y="19"/>
         </scene>
     </scenes>
 </document>

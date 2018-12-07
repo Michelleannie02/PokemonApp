@@ -182,14 +182,14 @@ class PokemonSelectorController: UIViewController {
         
         let labelOutlets:[UILabel] = [self.pikachuLabel, self.eeveeLabel, self.snorlaxLabel, self.charizardLabel, self.charmanderLabel, self.squirtleLabel, self.bulbasaurLabel, self.blastoiseLabel]
         
-        var mapViewController = segue.destination as! MapViewController
+        let destinationNavigationController = segue.destination as! UINavigationController
+        let targetController = destinationNavigationController.topViewController as! MapViewController
         
         do {
-            mapViewController.pokemonImageData = imageOutlets[selectedIndex].image
-            mapViewController.pokemonName = labelOutlets[selectedIndex].text
-            mapViewController.longitude = long
-            mapViewController.latitude = lat
-            
+            targetController.pokemonImageData = imageOutlets[selectedIndex].image
+            targetController.pokemonName = labelOutlets[selectedIndex].text
+            targetController.longitude = long
+            targetController.latitude = lat
             
             //TODO: FIX MEEEEEEEEE
             //mapViewController.pokemonStats = statsOutlets[selectedIndex].text
