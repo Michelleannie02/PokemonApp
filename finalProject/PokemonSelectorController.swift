@@ -117,6 +117,7 @@ class PokemonSelectorController: UIViewController {
             do{
                 self.long = popup.textFields?[0].text
                 self.lat = popup.textFields?[1].text
+                self.performSegue(withIdentifier: "segueMap", sender: nil)
                 
             }
             catch{
@@ -128,7 +129,7 @@ class PokemonSelectorController: UIViewController {
         
         // 4. Show the alert box!
         present(popup, animated:true)
-        performSegue(withIdentifier: "segueMap", sender: nil)
+        
         print(long)
         print(lat)
         
