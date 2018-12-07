@@ -44,6 +44,7 @@ class PokemonSelectorController: UIViewController {
     var name:String!
     var selectedIndex:Int!
     var long:String!
+    var lat:String!
     
     let pokemonImages = ["https://pokeapi.co/api/v2/pokemon/pikachu/",
                          "https://pokeapi.co/api/v2/pokemon/eevee/",
@@ -102,39 +103,71 @@ class PokemonSelectorController: UIViewController {
     }
     
     //MARK: - Actions
+    func enterLocation(){
+        print(long)
+        print(lat)
+        let popup = UIAlertController(title: "Add a location", message: "longitude and latitude", preferredStyle: .alert)
+        
+        popup.addTextField()
+        popup.addTextField()
+        
+        let cancelButton = UIAlertAction(title: "Cancel", style: .default, handler: nil)  // creating & configuring the button
+        let saveButton = UIAlertAction(title: "Save", style: .default, handler: {
+            action in
+            do{
+                self.long = popup.textFields?[0].text
+                self.lat = popup.textFields?[1].text
+                
+            }
+            catch{
+                print("error")
+            }})
+        
+        popup.addAction(saveButton)             // adds the button to your popup box
+        popup.addAction(cancelButton)
+        
+        // 4. Show the alert box!
+        present(popup, animated:true)
+        performSegue(withIdentifier: "segueMap", sender: nil)
+        print(long)
+        print(lat)
+        
+    }
+    
+    
     
     //Unfortunately we need to have individual actions for each gesture, I tried many times to put it into one method but it just doesn't work.
     @IBAction func onPikachuPress(_ sender: UITapGestureRecognizer) {
         selectedIndex = 0
-        performSegue(withIdentifier: "segueMap", sender: nil)
+        enterLocation()
     }
     @IBAction func onEeveePress(_ sender: UITapGestureRecognizer) {
         selectedIndex = 1
-        performSegue(withIdentifier: "segueMap", sender: nil)
+        enterLocation()
     }
     @IBAction func onSnorlaxPress(_ sender: UITapGestureRecognizer) {
         selectedIndex = 2
-        performSegue(withIdentifier: "segueMap", sender: nil)
+        enterLocation()
     }
     @IBAction func onCharizardPress(_ sender: UITapGestureRecognizer) {
         selectedIndex = 3
-        performSegue(withIdentifier: "segueMap", sender: nil)
+        enterLocation()
     }
     @IBAction func onCharmanderPress(_ sender: UITapGestureRecognizer) {
         selectedIndex = 4
-        performSegue(withIdentifier: "segueMap", sender: nil)
+        enterLocation()
     }
     @IBAction func onSquirtlePress(_ sender: UITapGestureRecognizer) {
         selectedIndex = 5
-        performSegue(withIdentifier: "segueMap", sender: nil)
+        enterLocation()
     }
     @IBAction func onBulbasaurPress(_ sender: UITapGestureRecognizer) {
         selectedIndex = 6
-        performSegue(withIdentifier: "segueMap", sender: nil)
+        enterLocation()
     }
     @IBAction func onBlastoisePress(_ sender: UITapGestureRecognizer) {
         selectedIndex = 7
-        performSegue(withIdentifier: "segueMap", sender: nil)
+        enterLocation()
     }
     
     
@@ -153,6 +186,9 @@ class PokemonSelectorController: UIViewController {
         do {
             mapViewController.pokemonImageData = imageOutlets[selectedIndex].image
             mapViewController.pokemonName = labelOutlets[selectedIndex].text
+            mapViewController.longitude = long
+            mapViewController.latitude = lat
+            
             
             //TODO: FIX MEEEEEEEEE
             //mapViewController.pokemonStats = statsOutlets[selectedIndex].text

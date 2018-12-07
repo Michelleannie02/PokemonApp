@@ -439,6 +439,7 @@
                         <viewLayoutGuide key="safeArea" id="WvI-HQ-hun"/>
                     </view>
                     <connections>
+                        <outlet property="mapView" destination="5nb-rz-zFq" id="rQw-Zo-viJ"/>
                         <outlet property="pokemonImage" destination="9H8-vS-9ZU" id="glA-cI-Pko"/>
                         <outlet property="pokemonNameLabel" destination="3KY-Kq-57p" id="j52-p4-mea"/>
                         <outlet property="pokemonStatsLabel" destination="BPs-d6-qDB" id="mGI-yB-9hf"/>
