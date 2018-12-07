@@ -30,10 +30,19 @@ class PokemonSelectorController: UIViewController {
     @IBOutlet weak var bulbasaurLabel: UILabel!
     @IBOutlet weak var blastoiseLabel: UILabel!
     
+    @IBOutlet weak var pikachuStatsLabel: UILabel!
+    @IBOutlet weak var eeveeStatsLabel: UILabel!
+    @IBOutlet weak var snorlaxStatsLabel: UILabel!
+    @IBOutlet weak var charizardStatsLabel: UILabel!
+    @IBOutlet weak var charmanderStatsLabel: UILabel!
+    @IBOutlet weak var squirtleStatsLabel: UILabel!
+    @IBOutlet weak var bulbasaurStatsLabel: UILabel!
+    @IBOutlet weak var blastoiseStatsLabel: UILabel!
+    
     @IBOutlet weak var welcomeLabel: UILabel!
     
     var name:String!
-    var selectedIndex:Int
+    var selectedIndex:Int!
     
     let pokemonImages = ["https://pokeapi.co/api/v2/pokemon/pikachu/",
                          "https://pokeapi.co/api/v2/pokemon/eevee/",
@@ -134,14 +143,19 @@ class PokemonSelectorController: UIViewController {
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
+        let imageOutlets:[UIImageView] = [self.pikachuImage, self.eeveeImage, self.snorlaxImage, self.charizardImage, self.charmanderImage, self.squirtleImage, self.bulbasaurImage, self.blastoiseImage]
+        
         let labelOutlets:[UILabel] = [self.pikachuLabel, self.eeveeLabel, self.snorlaxLabel, self.charizardLabel, self.charmanderLabel, self.squirtleLabel, self.bulbasaurLabel, self.blastoiseLabel]
         
         var mapViewController = segue.destination as! MapViewController
         
         do {
-            mapViewController.pokemonImage = try Data(contentsOf: pokemonImages[selectedIndex] as! URL)
+            mapViewController.pokemonImageData = imageOutlets[selectedIndex].image
             mapViewController.pokemonName = labelOutlets[selectedIndex].text
-            mapViewController.pokemonStats =
+            
+            //TODO: FIX MEEEEEEEEE
+            //mapViewController.pokemonStats = statsOutlets[selectedIndex].text
+            
         } catch {
             print ("error with selected pokemon")
         }
