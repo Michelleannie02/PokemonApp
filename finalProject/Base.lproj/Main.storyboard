@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="UFq-Vj-k9g">
-    <device id="retina4_7" orientation="portrait">
+    <device id="retina6_1" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -15,23 +15,23 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="finalProject" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pokemon Goat Catch 'em All" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NgK-2z-IjN">
-                                <rect key="frame" x="78" y="20" width="218" height="21"/>
+                                <rect key="frame" x="78" y="44" width="257" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hTO-4c-eDW">
-                                <rect key="frame" x="10" y="216" width="355" height="30"/>
+                                <rect key="frame" x="10" y="216" width="394" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hCO-Ag-07a">
-                                <rect key="frame" x="10" y="262" width="355" height="30"/>
+                                <rect key="frame" x="10" y="262" width="394" height="30"/>
                                 <color key="backgroundColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="Sign up"/>
                                 <connections>
@@ -39,7 +39,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SW7-b1-by6">
-                                <rect key="frame" x="10" y="300" width="355" height="30"/>
+                                <rect key="frame" x="10" y="300" width="394" height="30"/>
                                 <color key="backgroundColor" red="0.91725760320000005" green="1" blue="0.53777011470000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" title="Login"/>
                                 <connections>
@@ -47,19 +47,19 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bx8-5n-bBV">
-                                <rect key="frame" x="10" y="338" width="355" height="21"/>
+                                <rect key="frame" x="10" y="533" width="394" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zrV-4c-g3J">
-                                <rect key="frame" x="10" y="133" width="355" height="30"/>
+                                <rect key="frame" x="10" y="133" width="394" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Aze-Ny-9zn">
-                                <rect key="frame" x="10" y="178" width="355" height="30"/>
+                                <rect key="frame" x="10" y="178" width="394" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" textContentType="email"/>
@@ -93,9 +93,10 @@
                     </view>
                     <connections>
                         <outlet property="emailTextBox" destination="Aze-Ny-9zn" id="xq2-Fa-shZ"/>
+                        <outlet property="nameTextBox" destination="zrV-4c-g3J" id="X0d-kb-2WW"/>
                         <outlet property="passwordTextBox" destination="hTO-4c-eDW" id="0Xi-jl-oPV"/>
                         <outlet property="statusLabel" destination="Bx8-5n-bBV" id="Jnk-XD-PCn"/>
-                        <segue destination="UFq-Vj-k9g" kind="show" identifier="pickPoke" id="Qzg-YU-UBo"/>
+                        <segue destination="UFq-Vj-k9g" kind="show" identifier="seguePick" id="Qzg-YU-UBo"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -107,195 +108,344 @@
             <objects>
                 <viewController id="UFq-Vj-k9g" customClass="PokemonSelectorController" customModule="finalProject" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="vAc-ed-yMv">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="4kp-la-OAr">
-                                <rect key="frame" x="58" y="20" width="101" height="149.5"/>
+                                <rect key="frame" x="76" y="132" width="110" height="160"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Uvt-Zz-dGB">
-                                        <rect key="frame" x="0.0" y="0.0" width="101" height="101"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="110" height="110"/>
+                                        <gestureRecognizers/>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nAe-nZ-G1Y">
-                                        <rect key="frame" x="0.0" y="101" width="101" height="26.5"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Pikachu" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nAe-nZ-G1Y">
+                                        <rect key="frame" x="0.0" y="110" width="110" height="26.5"/>
                                         <fontDescription key="fontDescription" name="Papyrus" family="Papyrus" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tfM-zz-dVn">
-                                        <rect key="frame" x="0.0" y="127.5" width="101" height="22"/>
-                                        <fontDescription key="fontDescription" name="Papyrus" family="Papyrus" pointSize="14"/>
+                                        <rect key="frame" x="0.0" y="136.5" width="110" height="23.5"/>
+                                        <fontDescription key="fontDescription" name="Papyrus" family="Papyrus" pointSize="15"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="yXW-IJ-Kqs" appends="YES" id="CoV-i0-jgv"/>
+                                </connections>
                             </stackView>
-                            <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="4II-7r-fMJ">
-                                <rect key="frame" x="220" y="20" width="101" height="149.5"/>
+                            <stackView opaque="NO" tag="1" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="4II-7r-fMJ">
+                                <rect key="frame" x="238" y="132" width="110" height="160"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6f9-80-FEI">
-                                        <rect key="frame" x="0.0" y="0.0" width="101" height="101"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="110" height="110"/>
+                                        <gestureRecognizers/>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O0w-9q-hFe">
-                                        <rect key="frame" x="0.0" y="101" width="101" height="26.5"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Eevee" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O0w-9q-hFe">
+                                        <rect key="frame" x="0.0" y="110" width="110" height="26.5"/>
                                         <fontDescription key="fontDescription" name="Papyrus" family="Papyrus" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f2z-4M-orh">
-                                        <rect key="frame" x="0.0" y="127.5" width="101" height="22"/>
-                                        <fontDescription key="fontDescription" name="Papyrus" family="Papyrus" pointSize="14"/>
+                                        <rect key="frame" x="0.0" y="136.5" width="110" height="23.5"/>
+                                        <fontDescription key="fontDescription" name="Papyrus" family="Papyrus" pointSize="15"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="4OG-v6-FHp" appends="YES" id="UfF-e2-wes"/>
+                                </connections>
                             </stackView>
-                            <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="q29-ba-8Pq">
-                                <rect key="frame" x="58" y="181" width="101" height="149.5"/>
+                            <stackView opaque="NO" tag="2" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="q29-ba-8Pq">
+                                <rect key="frame" x="76" y="300" width="110" height="160"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Rbc-Ij-rJc">
-                                        <rect key="frame" x="0.0" y="0.0" width="101" height="101"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="110" height="110"/>
+                                        <gestureRecognizers/>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xgg-l0-VVi">
-                                        <rect key="frame" x="0.0" y="101" width="101" height="26.5"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Snorlax" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xgg-l0-VVi">
+                                        <rect key="frame" x="0.0" y="110" width="110" height="26.5"/>
                                         <fontDescription key="fontDescription" name="Papyrus" family="Papyrus" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gdr-Bg-Cmu">
-                                        <rect key="frame" x="0.0" y="127.5" width="101" height="22"/>
-                                        <fontDescription key="fontDescription" name="Papyrus" family="Papyrus" pointSize="14"/>
+                                        <rect key="frame" x="0.0" y="136.5" width="110" height="23.5"/>
+                                        <fontDescription key="fontDescription" name="Papyrus" family="Papyrus" pointSize="15"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="nas-V4-kVT" appends="YES" id="ri9-gl-ICA"/>
+                                </connections>
                             </stackView>
-                            <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="QnH-jO-88H">
-                                <rect key="frame" x="220" y="181" width="101" height="149.5"/>
+                            <stackView opaque="NO" tag="3" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="QnH-jO-88H">
+                                <rect key="frame" x="238" y="300" width="110" height="160"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="O51-Tv-shc">
-                                        <rect key="frame" x="0.0" y="0.0" width="101" height="101"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="110" height="110"/>
+                                        <gestureRecognizers/>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CkY-1c-4wz">
-                                        <rect key="frame" x="0.0" y="101" width="101" height="26.5"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Charizard" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CkY-1c-4wz">
+                                        <rect key="frame" x="0.0" y="110" width="110" height="26.5"/>
                                         <fontDescription key="fontDescription" name="Papyrus" family="Papyrus" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZQ6-5K-X5u">
-                                        <rect key="frame" x="0.0" y="127.5" width="101" height="22"/>
-                                        <fontDescription key="fontDescription" name="Papyrus" family="Papyrus" pointSize="14"/>
+                                        <rect key="frame" x="0.0" y="136.5" width="110" height="23.5"/>
+                                        <fontDescription key="fontDescription" name="Papyrus" family="Papyrus" pointSize="15"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="may-RF-C13" appends="YES" id="Nof-BR-fEm"/>
+                                </connections>
                             </stackView>
-                            <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="EqE-lP-BPW">
-                                <rect key="frame" x="58" y="342" width="101" height="149.5"/>
+                            <stackView opaque="NO" tag="4" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="EqE-lP-BPW">
+                                <rect key="frame" x="76" y="468" width="110" height="160"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mCG-ip-VXv">
-                                        <rect key="frame" x="0.0" y="0.0" width="101" height="101"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="110" height="110"/>
+                                        <gestureRecognizers/>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FfQ-Ji-lfV">
-                                        <rect key="frame" x="0.0" y="101" width="101" height="26.5"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Charmander" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FfQ-Ji-lfV">
+                                        <rect key="frame" x="0.0" y="110" width="110" height="26.5"/>
                                         <fontDescription key="fontDescription" name="Papyrus" family="Papyrus" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a0J-0Q-94V">
-                                        <rect key="frame" x="0.0" y="127.5" width="101" height="22"/>
-                                        <fontDescription key="fontDescription" name="Papyrus" family="Papyrus" pointSize="14"/>
+                                        <rect key="frame" x="0.0" y="136.5" width="110" height="23.5"/>
+                                        <fontDescription key="fontDescription" name="Papyrus" family="Papyrus" pointSize="15"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="wQG-tw-PiO" appends="YES" id="Yc9-Ji-QR9"/>
+                                </connections>
                             </stackView>
-                            <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="fET-OZ-4R2">
-                                <rect key="frame" x="220" y="342" width="101" height="149.5"/>
+                            <stackView opaque="NO" tag="5" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="fET-OZ-4R2">
+                                <rect key="frame" x="238" y="468" width="110" height="160"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1bA-yt-1ww">
-                                        <rect key="frame" x="0.0" y="0.0" width="101" height="101"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="110" height="110"/>
+                                        <gestureRecognizers/>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t7x-wi-5Tt">
-                                        <rect key="frame" x="0.0" y="101" width="101" height="26.5"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Squirtle" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t7x-wi-5Tt">
+                                        <rect key="frame" x="0.0" y="110" width="110" height="26.5"/>
                                         <fontDescription key="fontDescription" name="Papyrus" family="Papyrus" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QVi-qk-OyR">
-                                        <rect key="frame" x="0.0" y="127.5" width="101" height="22"/>
-                                        <fontDescription key="fontDescription" name="Papyrus" family="Papyrus" pointSize="14"/>
+                                        <rect key="frame" x="0.0" y="136.5" width="110" height="23.5"/>
+                                        <fontDescription key="fontDescription" name="Papyrus" family="Papyrus" pointSize="15"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="zM5-9s-VCH" appends="YES" id="Yfn-KF-Gad"/>
+                                </connections>
                             </stackView>
-                            <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="VQA-Ry-wtV">
-                                <rect key="frame" x="58" y="505" width="101" height="149.5"/>
+                            <stackView opaque="NO" tag="6" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="VQA-Ry-wtV">
+                                <rect key="frame" x="76" y="636" width="110" height="160"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="M00-db-pkp">
-                                        <rect key="frame" x="0.0" y="0.0" width="101" height="101"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="110" height="110"/>
+                                        <gestureRecognizers/>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C3e-Q3-ai2">
-                                        <rect key="frame" x="0.0" y="101" width="101" height="26.5"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Bulbasaur" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C3e-Q3-ai2">
+                                        <rect key="frame" x="0.0" y="110" width="110" height="26.5"/>
                                         <fontDescription key="fontDescription" name="Papyrus" family="Papyrus" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lHi-nZ-DuF">
-                                        <rect key="frame" x="0.0" y="127.5" width="101" height="22"/>
-                                        <fontDescription key="fontDescription" name="Papyrus" family="Papyrus" pointSize="14"/>
+                                        <rect key="frame" x="0.0" y="136.5" width="110" height="23.5"/>
+                                        <fontDescription key="fontDescription" name="Papyrus" family="Papyrus" pointSize="15"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="gkH-CS-RN0" appends="YES" id="ytS-uN-rUu"/>
+                                </connections>
                             </stackView>
-                            <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Xqz-7c-OX1">
-                                <rect key="frame" x="220" y="505" width="101" height="149.5"/>
+                            <stackView opaque="NO" tag="7" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Xqz-7c-OX1">
+                                <rect key="frame" x="238" y="636" width="110" height="160"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7WD-gP-a4b">
-                                        <rect key="frame" x="0.0" y="0.0" width="101" height="101"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="110" height="110"/>
+                                        <gestureRecognizers/>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="reG-Sp-UIy">
-                                        <rect key="frame" x="0.0" y="101" width="101" height="26.5"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Blastoise" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="reG-Sp-UIy">
+                                        <rect key="frame" x="0.0" y="110" width="110" height="26.5"/>
                                         <fontDescription key="fontDescription" name="Papyrus" family="Papyrus" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="doS-T9-E3V">
-                                        <rect key="frame" x="0.0" y="127.5" width="101" height="22"/>
-                                        <fontDescription key="fontDescription" name="Papyrus" family="Papyrus" pointSize="14"/>
+                                        <rect key="frame" x="0.0" y="136.5" width="110" height="23.5"/>
+                                        <fontDescription key="fontDescription" name="Papyrus" family="Papyrus" pointSize="15"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="C2N-OL-7hE" appends="YES" id="P7E-VA-V4a"/>
+                                </connections>
                             </stackView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pgu-yb-3zg">
+                                <rect key="frame" x="20" y="60" width="374" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <gestureRecognizers/>
+                                <fontDescription key="fontDescription" name="Papyrus" family="Papyrus" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="e9D-rn-M9H"/>
                     </view>
                     <connections>
                         <outlet property="blastoiseImage" destination="7WD-gP-a4b" id="pYb-ZZ-0Py"/>
+                        <outlet property="blastoiseLabel" destination="doS-T9-E3V" id="qOh-nG-3vH"/>
                         <outlet property="bulbasaurImage" destination="M00-db-pkp" id="kZa-KY-IwW"/>
+                        <outlet property="bulbasaurLabel" destination="lHi-nZ-DuF" id="lk7-VJ-5Kk"/>
                         <outlet property="charizardImage" destination="O51-Tv-shc" id="YI8-E1-Xuk"/>
+                        <outlet property="charizardLabel" destination="ZQ6-5K-X5u" id="p29-FI-1VM"/>
                         <outlet property="charmanderImage" destination="mCG-ip-VXv" id="v8e-4k-qLZ"/>
+                        <outlet property="charmanderLabel" destination="a0J-0Q-94V" id="WlB-Rf-Mp8"/>
                         <outlet property="eeveeImage" destination="6f9-80-FEI" id="0S5-E5-lad"/>
+                        <outlet property="eeveeLabel" destination="f2z-4M-orh" id="nwr-Fn-5PJ"/>
                         <outlet property="pikachuImage" destination="Uvt-Zz-dGB" id="Bt7-GT-F7l"/>
+                        <outlet property="pikachuLabel" destination="tfM-zz-dVn" id="nyF-np-cEz"/>
                         <outlet property="snorlaxImage" destination="Rbc-Ij-rJc" id="rdq-7i-aDh"/>
+                        <outlet property="snorlaxLabel" destination="gdr-Bg-Cmu" id="upc-Yy-8ve"/>
                         <outlet property="squirtleImage" destination="1bA-yt-1ww" id="sSN-S3-GYi"/>
+                        <outlet property="squirtleLabel" destination="QVi-qk-OyR" id="xBV-ys-EGL"/>
+                        <outlet property="welcomeLabel" destination="pgu-yb-3zg" id="bHM-pD-D8H"/>
+                        <segue destination="pR0-fR-Q3W" kind="show" identifier="segueMap" id="mwf-dO-dhN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sag-Ew-Q8l" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="yXW-IJ-Kqs">
+                    <connections>
+                        <action selector="onPikachuPress:" destination="UFq-Vj-k9g" id="Odu-0c-ak9"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="4OG-v6-FHp">
+                    <connections>
+                        <action selector="onEeveePress:" destination="UFq-Vj-k9g" id="oBp-TC-x6b"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="nas-V4-kVT">
+                    <connections>
+                        <action selector="onSnorlaxPress:" destination="UFq-Vj-k9g" id="An2-Av-5eS"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="may-RF-C13">
+                    <connections>
+                        <action selector="onCharizardPress:" destination="UFq-Vj-k9g" id="w0W-X0-fsX"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="wQG-tw-PiO">
+                    <connections>
+                        <action selector="onCharmanderPress:" destination="UFq-Vj-k9g" id="3rK-bq-Y0g"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="zM5-9s-VCH">
+                    <connections>
+                        <action selector="onSquirtlePress:" destination="UFq-Vj-k9g" id="PNg-sV-qti"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="gkH-CS-RN0">
+                    <connections>
+                        <action selector="onBulbasaurPress:" destination="UFq-Vj-k9g" id="6Zt-ac-neF"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="C2N-OL-7hE">
+                    <connections>
+                        <action selector="onBlastoisePress:" destination="UFq-Vj-k9g" id="vUh-cv-1Fk"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1509.5999999999999" y="26.53673163418291"/>
+            <point key="canvasLocation" x="1544.9275362318842" y="18.75"/>
+        </scene>
+        <!--Map View Controller-->
+        <scene sceneID="Ni2-cV-qdS">
+            <objects>
+                <viewController id="pR0-fR-Q3W" customClass="MapViewController" customModule="finalProject" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="wjZ-au-uHP">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9H8-vS-9ZU">
+                                <rect key="frame" x="10" y="41" width="120" height="119"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3KY-Kq-57p">
+                                <rect key="frame" x="150" y="44" width="183" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="Papyrus" family="Papyrus" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ymr-RV-vJW">
+                                <rect key="frame" x="150" y="90" width="183" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="Papyrus" family="Papyrus" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z6Y-ek-bxQ">
+                                <rect key="frame" x="150" y="130" width="183" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="Papyrus" family="Papyrus" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="5nb-rz-zFq">
+                                <rect key="frame" x="0.0" y="168" width="414" height="694"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </mapView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="WvI-HQ-hun"/>
+                    </view>
+                    <connections>
+                        <outlet property="pokemonAttackLabel" destination="ymr-RV-vJW" id="xVP-UB-oqo"/>
+                        <outlet property="pokemonDefenseLabel" destination="Z6Y-ek-bxQ" id="6aA-9x-JcU"/>
+                        <outlet property="pokemonNameLabel" destination="3KY-Kq-57p" id="j52-p4-mea"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="k4T-uJ-zg7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2439.130434782609" y="18.75"/>
         </scene>
     </scenes>
 </document>

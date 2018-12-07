@@ -14,6 +14,9 @@ import Alamofire
 class ViewController: UIViewController {
     
     //Mark: Outlets variables
+    
+    @IBOutlet weak var nameTextBox: UITextField!
+    
     @IBOutlet var emailTextBox: UITextField!
     
     @IBOutlet var passwordTextBox: UITextField!
@@ -24,7 +27,6 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
     }
-
     
     //Mark: Outlet Actions
     
@@ -34,18 +36,24 @@ class ViewController: UIViewController {
         let email = emailTextBox.text!
         let password = passwordTextBox.text!
         
-        // MARK: FB:  Try to create a user using Firebase Authentication
-        // This is all boilerplate code copied and pasted from Firebase documentation
-        Auth.auth().createUser(withEmail: email, password: password) {
+        if (nameTextBox.text == "") {
+            statusLabel.text = "Please enter your name"
+        } else {
             
-            (user, error) in
+            // MARK: FB:  Try to create a user using Firebase Authentication
+            // This is all boilerplate code copied and pasted from Firebase documentation
+            Auth.auth().createUser(withEmail: email, password: password) {
+                
+                (user, error) in
+                
+                if (user != nil) {
+                    self.statusLabel.text = "You have created a login"
+                }
+                else {
+                    self.statusLabel.text = error?.localizedDescription
+                }
+            }
             
-            if (user != nil) {
-                self.statusLabel.text = "You have created a login"
-            }
-            else {
-                self.statusLabel.text = error?.localizedDescription 
-            }
         }
         
     }
@@ -63,7 +71,7 @@ class ViewController: UIViewController {
             
             if (user != nil) {
                 self.statusLabel.text = "You are in the system"
-                self.performSegue(withIdentifier: "pickPoke", sender: nil)
+                self.performSegue(withIdentifier: "seguePick", sender: nil)
 
             }
             else {
@@ -74,6 +82,17 @@ class ViewController: UIViewController {
         }
     }
     
+    
+     // MARK: - Navigation
+     
 
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     
+        let pickPokemonScreen = segue.destination as! PokemonSelectorController
+        
+        pickPokemonScreen.name = nameTextBox.text!
+     
+     }
+    
 }
 
