@@ -32,6 +32,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         "https://pokeapi.co/api/v2/pokemon/onix/"]
     
     var pokemonFighter:String!
+    var enemyImageData:Data!
     
     var pokemonImages:[Data] = []
     
@@ -54,7 +55,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         let region = MKCoordinateRegion(center: centerCoordinate, span: span)
         
         // 4. Update the map to show your "view"
-        //mapView.setRegion(region, animated: true)
+        mapView.setRegion(region, animated: true)
         
         // add a pin to the map
         // 1. Create a new Pin object (MKPointAnnotation)
@@ -139,8 +140,9 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         super.viewDidLoad()
         mapView.delegate = self
         
-        pokemonImage.image = pokemonImageData
+        pokemonImage.image = self.pokemonImageData
         pokemonNameLabel.text = self.pokemonName
+        pokemonStatsLabel.text = self.pokemonStats
         
         loadPokemonImages()
         
@@ -155,8 +157,22 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                 return
             }
         }
-
+        
         pokemonFighter = (view.annotation?.title)!
+        switch pokemonFighter {
+            case "Salamence":
+                self.enemyImageData = pokemonImages[0]
+            case "Tyranitar":
+                self.enemyImageData = pokemonImages[1]
+            case "Garchomp":
+                self.enemyImageData = pokemonImages[2]
+            case "Rhydon":
+                self.enemyImageData = pokemonImages[3]
+            case "Onix":
+                self.enemyImageData = pokemonImages[4]
+            default:
+                return
+        }
         self.performSegue(withIdentifier: "battle", sender: nil)
     }
     
@@ -193,8 +209,13 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         var battleViewController = segue.destination as! BattleViewController
         
-        battleViewController.pokemonAttacker = pokemonFighter
-        battleViewController.yourImageData = pokemonImageData
+        
+        battleViewController.pokemonAttacker = self.pokemonFighter
+        battleViewController.pokemonAttackerImage = self.enemyImageData
+        
+        battleViewController.yourName = self.pokemonName
+        battleViewController.yourStats = self.pokemonStats
+        battleViewController.yourImageData = self.pokemonImageData
         
     }
 

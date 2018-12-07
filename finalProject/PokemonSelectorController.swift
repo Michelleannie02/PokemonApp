@@ -21,6 +21,15 @@ class PokemonSelectorController: UIViewController {
     @IBOutlet weak var bulbasaurImage: UIImageView!
     @IBOutlet weak var blastoiseImage: UIImageView!
     
+    @IBOutlet weak var pikachuNameLabel: UILabel!
+    @IBOutlet weak var eeveeNameLabel: UILabel!
+    @IBOutlet weak var snorlaxNameLabel: UILabel!
+    @IBOutlet weak var charizardNameLabel: UILabel!
+    @IBOutlet weak var charmanderNameLabel: UILabel!
+    @IBOutlet weak var squirtleNameLabel: UILabel!
+    @IBOutlet weak var bulbasaurNameLabel: UILabel!
+    @IBOutlet weak var blastoiseNameLabel: UILabel!
+    
     @IBOutlet weak var pikachuLabel: UILabel!
     @IBOutlet weak var eeveeLabel: UILabel!
     @IBOutlet weak var snorlaxLabel: UILabel!
@@ -29,15 +38,6 @@ class PokemonSelectorController: UIViewController {
     @IBOutlet weak var squirtleLabel: UILabel!
     @IBOutlet weak var bulbasaurLabel: UILabel!
     @IBOutlet weak var blastoiseLabel: UILabel!
-    
-    @IBOutlet weak var pikachuStatsLabel: UILabel!
-    @IBOutlet weak var eeveeStatsLabel: UILabel!
-    @IBOutlet weak var snorlaxStatsLabel: UILabel!
-    @IBOutlet weak var charizardStatsLabel: UILabel!
-    @IBOutlet weak var charmanderStatsLabel: UILabel!
-    @IBOutlet weak var squirtleStatsLabel: UILabel!
-    @IBOutlet weak var bulbasaurStatsLabel: UILabel!
-    @IBOutlet weak var blastoiseStatsLabel: UILabel!
     
     @IBOutlet weak var welcomeLabel: UILabel!
     
@@ -180,12 +180,15 @@ class PokemonSelectorController: UIViewController {
         
         let labelOutlets:[UILabel] = [self.pikachuLabel, self.eeveeLabel, self.snorlaxLabel, self.charizardLabel, self.charmanderLabel, self.squirtleLabel, self.bulbasaurLabel, self.blastoiseLabel]
         
+        let nameOutlets:[UILabel] = [self.pikachuNameLabel, self.eeveeNameLabel, self.snorlaxNameLabel, self.charizardNameLabel, self.charmanderNameLabel, self.squirtleNameLabel, self.bulbasaurNameLabel, self.blastoiseNameLabel]
+        
         let destinationNavigationController = segue.destination as! UINavigationController
         let targetController = destinationNavigationController.topViewController as! MapViewController
         
         do {
             targetController.pokemonImageData = imageOutlets[selectedIndex].image
-            targetController.pokemonName = labelOutlets[selectedIndex].text
+            targetController.pokemonName = nameOutlets[selectedIndex].text
+            targetController.pokemonStats = labelOutlets[selectedIndex].text
             targetController.longitude = long
             targetController.latitude = lat
             

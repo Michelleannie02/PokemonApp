@@ -32,8 +32,8 @@ class BattleViewController: UIViewController {
     //MARK: - Variables
     
     var pokemonAttacker:String!
-    var pokemonAttackerStats:String!
-    var pokemonAttackerImage:UIImage!
+    var pokemonAttackerImage:Data!
+    var pokemonLevel:Int!
     
     var yourName:String!
     var yourStats:String!
@@ -42,10 +42,35 @@ class BattleViewController: UIViewController {
     //MARK: - Default Functiom
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        //**** TEMP ****
+        pokemonLevel = 1
+        //**************
         self.navigationItem.setHidesBackButton(true, animated: true)
         
+        enemyNameLabel.text = pokemonAttacker
+        let attack = Int.random(in: 12 ... 20)
+        let defense = Int.random(in: 12 ... 20)
+        enemyStatsLabel.text = "ATT: \(attack)  DEF: \(defense)"
+        enemyImage.image = UIImage(data: pokemonAttackerImage)
+        
+        gameMessageLabel.text = "YOUR MOVE FIRST"
+        
+        yourNameLabel.text = yourName
+        yourStatsLabel.text = yourStats
         yourImage.image = yourImageData!
+        
+        if (pokemonLevel >= 2) {
+            upperCutButton.isEnabled = true
+        } else {
+            upperCutButton.isEnabled = false
+        }
+        
+        if (pokemonLevel >= 3) {
+            goatSlapButton.isEnabled = true
+        } else {
+            goatSlapButton.isEnabled = false
+        }
     }
     
     //MARK: - Actions

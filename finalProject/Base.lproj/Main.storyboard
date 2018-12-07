@@ -334,28 +334,28 @@
                     <connections>
                         <outlet property="blastoiseImage" destination="7WD-gP-a4b" id="pYb-ZZ-0Py"/>
                         <outlet property="blastoiseLabel" destination="doS-T9-E3V" id="qOh-nG-3vH"/>
-                        <outlet property="blastoiseStatsLabel" destination="doS-T9-E3V" id="Rhr-b1-WEO"/>
+                        <outlet property="blastoiseNameLabel" destination="reG-Sp-UIy" id="Nfk-UF-DSL"/>
                         <outlet property="bulbasaurImage" destination="M00-db-pkp" id="kZa-KY-IwW"/>
                         <outlet property="bulbasaurLabel" destination="lHi-nZ-DuF" id="lk7-VJ-5Kk"/>
-                        <outlet property="bulbasaurStatsLabel" destination="lHi-nZ-DuF" id="YiH-Tj-Pyh"/>
+                        <outlet property="bulbasaurNameLabel" destination="C3e-Q3-ai2" id="wvJ-df-uhZ"/>
                         <outlet property="charizardImage" destination="O51-Tv-shc" id="YI8-E1-Xuk"/>
                         <outlet property="charizardLabel" destination="ZQ6-5K-X5u" id="p29-FI-1VM"/>
-                        <outlet property="charizardStatsLabel" destination="ZQ6-5K-X5u" id="4us-Bo-xOX"/>
+                        <outlet property="charizardNameLabel" destination="CkY-1c-4wz" id="rB4-Ua-M3D"/>
                         <outlet property="charmanderImage" destination="mCG-ip-VXv" id="v8e-4k-qLZ"/>
                         <outlet property="charmanderLabel" destination="a0J-0Q-94V" id="WlB-Rf-Mp8"/>
-                        <outlet property="charmanderStatsLabel" destination="a0J-0Q-94V" id="vGu-TH-bTo"/>
+                        <outlet property="charmanderNameLabel" destination="FfQ-Ji-lfV" id="req-Ef-rps"/>
                         <outlet property="eeveeImage" destination="6f9-80-FEI" id="0S5-E5-lad"/>
                         <outlet property="eeveeLabel" destination="f2z-4M-orh" id="nwr-Fn-5PJ"/>
-                        <outlet property="eeveeStatsLabel" destination="f2z-4M-orh" id="cAJ-cU-YrD"/>
+                        <outlet property="eeveeNameLabel" destination="O0w-9q-hFe" id="Shh-NI-ayZ"/>
                         <outlet property="pikachuImage" destination="Uvt-Zz-dGB" id="Bt7-GT-F7l"/>
                         <outlet property="pikachuLabel" destination="tfM-zz-dVn" id="nyF-np-cEz"/>
-                        <outlet property="pikachuStatsLabel" destination="tfM-zz-dVn" id="JXd-A2-PiK"/>
+                        <outlet property="pikachuNameLabel" destination="nAe-nZ-G1Y" id="wrK-UY-bwd"/>
                         <outlet property="snorlaxImage" destination="Rbc-Ij-rJc" id="rdq-7i-aDh"/>
                         <outlet property="snorlaxLabel" destination="gdr-Bg-Cmu" id="upc-Yy-8ve"/>
-                        <outlet property="snorlaxStatsLabel" destination="gdr-Bg-Cmu" id="hFR-p9-rbx"/>
+                        <outlet property="snorlaxNameLabel" destination="Xgg-l0-VVi" id="V6j-ej-8np"/>
                         <outlet property="squirtleImage" destination="1bA-yt-1ww" id="sSN-S3-GYi"/>
                         <outlet property="squirtleLabel" destination="QVi-qk-OyR" id="xBV-ys-EGL"/>
-                        <outlet property="squirtleStatsLabel" destination="QVi-qk-OyR" id="NHj-qD-T6f"/>
+                        <outlet property="squirtleNameLabel" destination="t7x-wi-5Tt" id="g7V-DT-2ea"/>
                         <outlet property="welcomeLabel" destination="pgu-yb-3zg" id="bHM-pD-D8H"/>
                         <segue destination="YzD-YB-FWS" kind="show" identifier="segueMap" id="1MO-Tb-DuT"/>
                     </connections>
@@ -469,18 +469,18 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jMS-0h-OTq">
-                                <rect key="frame" x="131" y="579" width="150" height="150"/>
+                                <rect key="frame" x="131" y="540" width="150" height="150"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="HP: 67" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WRg-lU-gYU">
-                                <rect key="frame" x="178" y="320" width="56" height="31"/>
+                                <rect key="frame" x="179" y="169" width="56" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Papyrus" family="Papyrus" pointSize="20"/>
-                                <color key="textColor" red="0.2006082601979616" green="0.76084628807106602" blue="0.20062128854285596" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="textColor" red="1" green="0.065431795060000006" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="HP: 67" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aSz-bB-Znj">
-                                <rect key="frame" x="178" y="540" width="56" height="31"/>
+                                <rect key="frame" x="179" y="698" width="56" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Papyrus" family="Papyrus" pointSize="20"/>
                                 <color key="textColor" red="0.2006082602" green="0.76084628809999999" blue="0.20062128849999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -546,21 +546,21 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="YOUR NAME" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o8E-MW-5ns">
-                                <rect key="frame" x="144" y="737" width="124" height="31"/>
+                                <rect key="frame" x="92" y="737" width="228" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Papyrus" family="Papyrus" pointSize="20"/>
                                 <color key="textColor" red="0.2006082602" green="0.76084628809999999" blue="0.20062128849999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="YOUR STATS" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aeY-3U-GxY">
-                                <rect key="frame" x="144" y="767" width="125" height="31"/>
+                                <rect key="frame" x="92" y="767" width="228" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Papyrus" family="Papyrus" pointSize="20"/>
                                 <color key="textColor" red="0.2006082602" green="0.76084628809999999" blue="0.20062128849999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1R6-OF-Cl0">
-                                <rect key="frame" x="131" y="162" width="150" height="150"/>
+                                <rect key="frame" x="131" y="208" width="150" height="150"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                         </subviews>
