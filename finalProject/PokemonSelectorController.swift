@@ -43,6 +43,7 @@ class PokemonSelectorController: UIViewController {
     
     var name:String!
     var selectedIndex:Int!
+    var long:String!
     
     let pokemonImages = ["https://pokeapi.co/api/v2/pokemon/pikachu/",
                          "https://pokeapi.co/api/v2/pokemon/eevee/",
