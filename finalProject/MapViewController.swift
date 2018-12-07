@@ -8,6 +8,9 @@
 
 import UIKit
 import MapKit
+import Alamofire
+import SwiftyJSON
+
 
 class MapViewController: UIViewController, MKMapViewDelegate {
     
@@ -22,8 +25,6 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     @IBOutlet weak var pokemonNameLabel: UILabel!
     @IBOutlet weak var pokemonStatsLabel: UILabel!
     
-    
-    
     let fightPokemon = ["https://pokeapi.co/api/v2/pokemon/salamence/",
         "https://pokeapi.co/api/v2/pokemon/tyranitar/",
         "https://pokeapi.co/api/v2/pokemon/garchomp/",
@@ -32,14 +33,11 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     var pokemonFighter:String!
     
+    var pokemonImages:[Data] = []
+    
     //MARK: TODO: CHECK USER INPUT FOR LOCATION
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        mapView.delegate = self
-        
-        pokemonImage.image = pokemonImageData
-        pokemonNameLabel.text = self.pokemonName
+    func addingPins() {
         //pokemonStatsLabel.text = "\(self.pokemonStats)  HP: 100"
         
         // set up the "view" of the map
@@ -62,11 +60,11 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         // 1. Create a new Pin object (MKPointAnnotation)
         
         let random = Float.random(in: 0.1 ... 0.2)
-        let random2 = Float.random(in: 0.2 ... 0.3)
-        let random3 = Float.random(in: 0.4 ... 0.5)
-        let random4 = Float.random(in: 0.6 ... 0.7)
-        let random5 = Float.random(in: 0.8 ... 0.9)
-
+        let random2 = Float.random(in: -0.4 ... -0.3)
+        let random3 = Float.random(in: 0.5 ... 0.6)
+        let random4 = Float.random(in: -0.8 ... -0.7)
+        let random5 = Float.random(in: 0.9 ... 1)
+        
         let pin = MKPointAnnotation()
         let pin2 = MKPointAnnotation()
         let pin3 = MKPointAnnotation()
@@ -82,10 +80,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         let coord4 = CLLocationCoordinate2DMake(longitudeValue-Double(random3),latitudeValue-Double(random3))
         let coord5 = CLLocationCoordinate2DMake(longitudeValue-Double(random4),latitudeValue-Double(random4))
         let coord6 = CLLocationCoordinate2DMake(longitudeValue-Double(random5),latitudeValue-Double(random5))
-
-
-
-
+        
         pin.coordinate = coord
         pin2.coordinate = coord2
         pin3.coordinate = coord3
@@ -94,11 +89,11 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         pin6.coordinate = coord6
         // 3. OPTIONAL: add a "bubble/popup"
         pin.title = self.pokemonName
-        pin2.title = "salamence"
-        pin3.title = "tyranitar"
-        pin4.title = "garchomp"
-        pin5.title = "rhydon"
-        pin6.title = "onix"
+        pin2.title = "Salamence"
+        pin3.title = "Tyranitar"
+        pin4.title = "Garchomp"
+        pin5.title = "Rhydon"
+        pin6.title = "Onix"
         
         // 4. Add the pin to the map
         mapView.addAnnotation(pin)
@@ -107,21 +102,92 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         mapView.addAnnotation(pin4)
         mapView.addAnnotation(pin5)
         mapView.addAnnotation(pin6)
-        print(coord2)
-        print(coord)
+    }
+    
+    func loadPokemonImages() {
+        
+        //MARK: Getting Images for the random pokemons
+        for iPokemon in 0..<self.fightPokemon.count {
+            
+            let url = fightPokemon[iPokemon]
+            
+            Alamofire.request(url,method: .get, parameters:nil).responseJSON{
+                (response) in
+                if(response.result.isSuccess){
+                    print("got sucess")
+                    do{
+                        let json = try JSON(response.data!)
+                        let imageUrl = json["sprites"]["front_default"].url!
+                        let imgData:Data = try Data(contentsOf: imageUrl)
+                        self.pokemonImages.append(imgData)
+                        if (iPokemon == 4) {
+                            self.addingPins()
+                        }
+                    }
+                    catch{
+                        print("error")
+                        
+                    }
+                    
+                }
+                
+             }
+        }
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        mapView.delegate = self
+        
+        pokemonImage.image = pokemonImageData
+        pokemonNameLabel.text = self.pokemonName
+        
+        loadPokemonImages()
         
     }
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView)
     {
-        print("to ehre")
+
         if let annotationTitle = view.annotation?.title
         {
-            print("User tapped on annotation with title: \(annotationTitle!)")
-            print("got")
+            if (annotationTitle == self.pokemonName) {
+                return
+            }
         }
+
         pokemonFighter = (view.annotation?.title)!
         self.performSegue(withIdentifier: "battle", sender: nil)
+    }
+    
+    
+    //MARK: Adding images to pin
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+
+        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "AnnotationView")
+        if annotationView == nil {
+            annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: "AnnotationView")
+        }
+        if annotation.title == self.pokemonName {
+            annotationView?.image = self.pokemonImageData
+        }
+        else if  annotation.title == "Salamence" {
+            annotationView?.image = UIImage(data: pokemonImages[0])
+        }
+        else if  annotation.title == "Tyranitar" {
+            annotationView?.image = UIImage(data: pokemonImages[1])
+        }
+        else if  annotation.title == "Garchomp" {
+            annotationView?.image = UIImage(data: pokemonImages[2])
+        }
+        else if  annotation.title == "Rhydon" {
+            annotationView?.image = UIImage(data: pokemonImages[3])
+        }
+        else if  annotation.title == "Onix" {
+            annotationView?.image = UIImage(data: pokemonImages[4])
+        }
+        annotationView?.canShowCallout = true
+        return annotationView!
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

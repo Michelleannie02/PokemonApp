@@ -83,9 +83,7 @@ class PokemonSelectorController: UIViewController {
                         let json = try JSON(response.data!)
                         let imageUrl = json["sprites"]["front_default"].url!
                         let imgData:Data = try Data(contentsOf: imageUrl)
-                        
-                        var image = UIImage(data: imgData)
-                        
+                                                
                         imageOutlets[iPokemon].image = UIImage(data: imgData)
                         let attack = Int.random(in: 12 ... 20)
                         let defense = Int.random(in: 12 ... 20)
