@@ -86,7 +86,7 @@ class PokemonSelectorController: UIViewController {
                                                 
                         imageOutlets[iPokemon].image = UIImage(data: imgData)
                         let attack = Int.random(in: 12 ... 20)
-                        let defense = Int.random(in: 12 ... 20)
+                        let defense = Int.random(in: 6 ... 10)
                         
                         labelOutlets[iPokemon].text = "ATT: \(attack)  DEF: \(defense)"
                         

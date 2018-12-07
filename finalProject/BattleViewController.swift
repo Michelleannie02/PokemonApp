@@ -50,7 +50,7 @@ class BattleViewController: UIViewController {
         
         enemyNameLabel.text = pokemonAttacker
         let attack = Int.random(in: 12 ... 20)
-        let defense = Int.random(in: 12 ... 20)
+        let defense = Int.random(in: 6 ... 10)
         enemyStatsLabel.text = "ATT: \(attack)  DEF: \(defense)"
         enemyImage.image = UIImage(data: pokemonAttackerImage)
         
@@ -88,6 +88,19 @@ class BattleViewController: UIViewController {
     }
     
     @IBAction func onSurrenderPress(_ sender: Any) {
+        let random = Int.random(in: 0 ... 1)
+        if(random == 0) {
+            self.navigationItem.setHidesBackButton(true, animated: true)
+
+        } else {
+            self.navigationItem.setHidesBackButton(false, animated: true)
+            self.punchButton.isEnabled = false
+            self.kickButton.isEnabled = false
+            self.upperCutButton.isEnabled = false
+            self.goatSlapButton.isEnabled = false
+            self.surrenderButton.isEnabled = false
+            self.gameMessageLabel.text = "SURRENDERED. YOU MAY GO BACK OR VIEW STATS"
+        }
     }
     
     /*
