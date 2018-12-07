@@ -22,6 +22,8 @@ class MapViewController: UIViewController {
     @IBOutlet weak var pokemonNameLabel: UILabel!
     @IBOutlet weak var pokemonStatsLabel: UILabel!
     
+    //MARK: TODO: CHECK USER INPUT FOR LOCATION
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
