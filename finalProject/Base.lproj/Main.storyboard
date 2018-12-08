@@ -504,7 +504,7 @@
                         <outlet property="pokemonLevelUpButton" destination="C4q-bD-fg2" id="GJn-nu-aHn"/>
                         <outlet property="pokemonNameLabel" destination="3KY-Kq-57p" id="j52-p4-mea"/>
                         <outlet property="pokemonStatsLabel" destination="QAW-6c-zWK" id="geZ-H7-8fj"/>
-                        <outlet property="pokemonStatusLabel" destination="wjZ-au-uHP" id="Rv1-SZ-rKL"/>
+                        <outlet property="pokemonStatusLabel" destination="tKm-nc-dPA" id="3Xe-BH-Eqy"/>
                         <segue destination="XCS-TM-yi1" kind="show" identifier="battle" id="yKv-lI-g1H"/>
                     </connections>
                 </viewController>
