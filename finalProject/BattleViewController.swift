@@ -98,6 +98,7 @@ class BattleViewController: UIViewController {
         let yourAttack = self.myPokemon.pokemonAttack - self.enemyPokemon.pokemonDefense
         gameMessageLabel.text = "YOU PUNCHED FOR \(yourAttack) DAMAGE. \(enemyPokemon.pokemonName!.uppercased())'S TURN"
         disableButtons()
+        enemyAttack()
     }
     
     @IBAction func onKickPress(_ sender: Any) {
@@ -105,18 +106,21 @@ class BattleViewController: UIViewController {
         let yourAttack = self.myPokemon.pokemonAttack - self.enemyPokemon.pokemonDefense
         gameMessageLabel.text = "YOU KICKED FOR \(yourAttack) DAMAGE. \(enemyPokemon.pokemonName!.uppercased())'S TURN"
         disableButtons()
+        enemyAttack()
     }
     
     @IBAction func onUpperCutPress(_ sender: Any) {
         let yourAttack = (Double(self.myPokemon.pokemonAttack) * 1.1) - Double(self.enemyPokemon.pokemonDefense)
         gameMessageLabel.text = "YOU UPPER CUTTED FOR \(yourAttack) DAMAGE. \(enemyPokemon.pokemonName!.uppercased())'S TURN"
         disableButtons()
+        enemyAttack()
     }
     
     @IBAction func onGoatSlapPress(_ sender: Any) {
         let yourAttack = (Double(self.myPokemon.pokemonAttack) * 1.3) - Double(self.enemyPokemon.pokemonDefense)
         gameMessageLabel.text = "YOU GOAT SLAPPED FOR \(yourAttack) DAMAGE. \(enemyPokemon.pokemonName!.uppercased())'S TURN"
         disableButtons()
+        enemyAttack()
     }
     
     @IBAction func onSurrenderPress(_ sender: Any) {
@@ -127,10 +131,40 @@ class BattleViewController: UIViewController {
         if(random == 0) {
             self.navigationItem.setHidesBackButton(true, animated: true)
             self.gameMessageLabel.text = "SURRENDER FAILED. \(enemyPokemon.pokemonName!.uppercased())'S TURN"
+            enemyAttack()
         } else {
             self.navigationItem.setHidesBackButton(false, animated: true)
             self.gameMessageLabel.text = "SURRENDERED. YOU MAY RETURN TO THE MAP WITH THE BUTTON ABOVE"
         }
+    }
+    
+    
+    func enemyAttack() {
+        
+        let kickAttack = enemyPokemon.pokemonAttack
+        let punchAttack = enemyPokemon.pokemonAttack
+        let upperCutAttack = Double(enemyPokemon.pokemonAttack) * 1.1
+        let goatSlapAttack = Double(enemyPokemon.pokemonAttack) * 1.3
+        
+        if(kickAttack > myPokemon.pokemonDefense) {
+            let yourAttack = kickAttack - myPokemon.pokemonDefense
+            gameMessageLabel.text = "YOU GOT KICKED FOR \(yourAttack) DAMAGE. \(myPokemon.pokemonName!.uppercased())'S TURN"
+        }
+        else if(punchAttack > myPokemon.pokemonDefense) {
+            let yourAttack = punchAttack - myPokemon.pokemonDefense
+            gameMessageLabel.text = "YOU GOT PUNCHED FOR \(yourAttack) DAMAGE. \(myPokemon.pokemonName!.uppercased())'S TURN"
+        }
+        else if(Int16(upperCutAttack) > myPokemon.pokemonDefense) {
+            let yourAttack = upperCutAttack - Double(myPokemon.pokemonDefense)
+            gameMessageLabel.text = "YOU GOT UPPER CUTTED FOR \(yourAttack) DAMAGE. \(myPokemon.pokemonName!.uppercased())'S TURN"
+        }
+        else if(Int16(goatSlapAttack) > myPokemon.pokemonDefense) {
+            let yourAttack = upperCutAttack - Double(myPokemon.pokemonDefense)
+            gameMessageLabel.text = "YOU GOT GOAT SLAPPED FOR \(yourAttack) DAMAGE. \(myPokemon.pokemonName!.uppercased())'S TURN"
+        }
+        
+        enableButtons()
+        
     }
     
     /*
