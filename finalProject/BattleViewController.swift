@@ -121,9 +121,9 @@ class BattleViewController: UIViewController {
         if(self.enemyPokemon.pokemonHP <= 0){
             
             self.enemyPokemon.pokemonHP = 0
-            gameMessageLabel.text = "You Won. You get 3XP. Go Back to Battle Map to Battle More."
+            gameMessageLabel.text = "You Won. You get \(self.myPokemon.pokemonLevel + 1)XP. Go Back to Battle Map to Battle More."
             self.navigationItem.setHidesBackButton(false, animated: true)
-            self.myPokemon.pokemonEXP += 3
+            self.myPokemon.pokemonEXP += (self.myPokemon.pokemonLevel + 1)
             self.enemyHealthLabel.text = "HP: \(self.enemyPokemon.pokemonHP)/\(MapViewController.MAX_HEALTH)"
             self.enemyPokemon.pokemonHP = 100
             //TODO: Add money
@@ -171,9 +171,26 @@ class BattleViewController: UIViewController {
         var run:Bool = true
         var rNG:Int!
         
-        while (run == true) {
-            rNG = Int.random(in: 1...4)
-            switch rNG {
+        if (Int16(Double(punchAttack) * 1.3) < self.myPokemon.pokemonDefense) {
+            let random = Int.random(in: 0 ... 1)
+            if(random == 0) {
+                self.navigationItem.setHidesBackButton(true, animated: true)
+                self.gameMessageLabel.text = "\(enemyPokemon.pokemonName!.uppercased())'S SURRENDER FAILED. \(self.myPokemon.pokemonName)'S TURN"
+                enableButtons()
+                return
+            } else {
+                //TODO: Needs testing - AI will try to surrender
+                self.navigationItem.setHidesBackButton(false, animated: true)
+                self.gameMessageLabel.text = "\(enemyPokemon.pokemonName!.uppercased()) SURRENDERED. YOU WIN \(self.myPokemon.pokemonLevel + 1) XP. YOU MAY RETURN TO THE MAP WITH THE BUTTON ABOVE"
+
+                self.myPokemon.pokemonEXP += (self.myPokemon.pokemonLevel + 1)
+                self.enemyHealthLabel.text = "HP: \(self.enemyPokemon.pokemonHP)/\(MapViewController.MAX_HEALTH)"
+                self.enemyPokemon.pokemonHP = 100
+            }
+        } else {
+            while (run == true) {
+                rNG = Int.random(in: 1...4)
+                switch rNG {
                 case 1:
                     if (punchAttack > self.myPokemon.pokemonDefense) {
                         attack = Int16(punchAttack) - self.myPokemon.pokemonDefense
@@ -200,25 +217,27 @@ class BattleViewController: UIViewController {
                     }
                 default:
                     print("error with enemy attacks")
+                }
+                
+            }
+            self.myPokemon.pokemonHP -= attack
+            
+            if(self.myPokemon.pokemonHP <= 0){
+                
+                self.myPokemon.pokemonHP = 0
+                gameMessageLabel.text = "You lost. Go Back to Battle Map to revive."
+                self.navigationItem.setHidesBackButton(false, animated: true)
+                //TODO: Deduct money
+                disableButtons()
+            } else {
+                enableButtons()
+                gameMessageLabel.text = attackMessage
             }
             
+            self.yourHealthLabel.text = "HP: \(self.myPokemon.pokemonHP)/\(MapViewController.MAX_HEALTH)"
         }
         
-        self.myPokemon.pokemonHP -= attack
-        
-        if(self.myPokemon.pokemonHP <= 0){
-            
-            self.myPokemon.pokemonHP = 0
-            gameMessageLabel.text = "You lost. Go Back to Battle Map to revive."
-            self.navigationItem.setHidesBackButton(false, animated: true)
-            //TODO: Deduct money
-            disableButtons()
-        } else {
-            enableButtons()
-            gameMessageLabel.text = attackMessage
-        }
-        
-        self.yourHealthLabel.text = "HP: \(self.myPokemon.pokemonHP)/\(MapViewController.MAX_HEALTH)"
+    
         
         
         

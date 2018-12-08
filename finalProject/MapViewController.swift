@@ -113,19 +113,23 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        self.pokemonHPLabel.text = "HP: \(self.myPokemon.pokemonHP)/\(MapViewController.MAX_HEALTH)"
-        self.pokemonEXPLabel.text = "LEVEL \(self.myPokemon.pokemonLevel) - EXP: \(self.myPokemon.pokemonEXP)/\(MapViewController.MAX_EXP)"
         
-        if (self.myPokemon.pokemonEXP == Int16(MapViewController.MAX_EXP)) {
+        if (self.myPokemon.pokemonEXP >= Int16(MapViewController.MAX_EXP)) {
+            self.myPokemon.pokemonEXP = Int16(MapViewController.MAX_EXP)
             pokemonLevelUpButton.isEnabled = true
             mapView.isUserInteractionEnabled = false
+            mapView.isHidden = true
             self.pokemonStatusLabel.text = "LEVEL UP YOUR POKEMON TO CONTINUE!"
         }
         
         if (self.myPokemon.pokemonHP == 0) {
             self.pokemonStatusLabel.text = "HEAL YOUR POKEMON TO CONTINUE!"
             mapView.isUserInteractionEnabled = false
+            mapView.isHidden = true
         }
+        
+        self.pokemonHPLabel.text = "HP: \(self.myPokemon.pokemonHP)/\(MapViewController.MAX_HEALTH)"
+        self.pokemonEXPLabel.text = "LEVEL \(self.myPokemon.pokemonLevel) - EXP: \(self.myPokemon.pokemonEXP)/\(MapViewController.MAX_EXP)"
     }
     
     func loadPokemonImages() {
@@ -181,6 +185,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         pokemonLevelUpButton.isEnabled = false
         pokemonStatusLabel.text = ""
         mapView.isUserInteractionEnabled = true
+        mapView.isHidden = false
         
         var databaseResults = [Pokemon]()
         let fetchRequest:NSFetchRequest<Pokemon> = Pokemon.fetchRequest()
@@ -299,6 +304,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         
         self.pokemonStatusLabel.text = ""
         mapView.isUserInteractionEnabled = true
+        mapView.isHidden = false
     }
     
     func updateStats(){
@@ -315,11 +321,12 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     @IBAction func onHospitalPress(_ sender: Any) {
         //TODO: Charge the user money! no free healthcare this aint Canada
-        self.myPokemon.pokemonHP = 100
+        self.myPokemon.pokemonHP = Int16(MapViewController.MAX_HEALTH)
         pokemonHPLabel.text = "HP: \(self.myPokemon.pokemonHP)/\(MapViewController.MAX_HEALTH)"
         
         self.pokemonStatusLabel.text = ""
         mapView.isUserInteractionEnabled = true
+        mapView.isHidden = false
     }
     
     @IBAction func onLeaderboardsPress(_ sender: Any) {
