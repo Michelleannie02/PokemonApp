@@ -127,7 +127,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             mapView.isUserInteractionEnabled = false
             mapView.isHidden = true
         }
-        
+        //TODO: Update Leaderbaords, save to the DB
         self.pokemonHPLabel.text = "HP: \(self.myPokemon.pokemonHP)/\(MapViewController.MAX_HEALTH)"
         self.pokemonEXPLabel.text = "LEVEL \(self.myPokemon.pokemonLevel) - EXP: \(self.myPokemon.pokemonEXP)/\(MapViewController.MAX_EXP)"
     }
@@ -292,7 +292,13 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         self.myPokemon.pokemonLevel += 1
         self.myPokemon.pokemonAttack += 3
         self.myPokemon.pokemonDefense += 2
-
+        
+        for iPokemon in 0..<enemyPokemonCollection.count {
+            enemyPokemonCollection[iPokemon].pokemonAttack += 2
+            enemyPokemonCollection[iPokemon].pokemonDefense += 1
+            enemyPokemonCollection[iPokemon].pokemonHP += 5
+        }
+        
         MapViewController.MAX_HEALTH += 5
         self.myPokemon.pokemonHP = Int16(MapViewController.MAX_HEALTH)
         
@@ -306,6 +312,8 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         mapView.isUserInteractionEnabled = true
         mapView.isHidden = false
     }
+    
+    
     
     func updateStats(){
         
@@ -330,6 +338,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     }
     
     @IBAction func onLeaderboardsPress(_ sender: Any) {
+        //TODO:
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

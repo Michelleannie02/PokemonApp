@@ -626,6 +626,13 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="aha-wN-HoS"/>
                     </view>
+                    <navigationItem key="navigationItem" title="Battle!" id="pBY-Od-dbG">
+                        <barButtonItem key="rightBarButtonItem" title="Help" id="edN-0b-j6Z">
+                            <connections>
+                                <action selector="onHelpButtonPress:" destination="XCS-TM-yi1" id="ptk-V8-eSQ"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="enemyHealthLabel" destination="WRg-lU-gYU" id="8NR-Qs-Ntv"/>
                         <outlet property="enemyImage" destination="1R6-OF-Cl0" id="fZe-4i-H2R"/>

@@ -94,6 +94,17 @@ class BattleViewController: UIViewController {
     
     //MARK: - Actions
     
+    @IBAction func onHelpButtonPress(_ sender: Any) {
+        let popup = UIAlertController(title: "Locked Moves", message: "If you see moves that are greyed out, you must level up to be able to use them.", preferredStyle: .alert)
+        
+        let okButton = UIAlertAction(title: "OK", style: .default, handler: nil)  // creating & configuring the button
+        
+        popup.addAction(okButton)             // adds the button to your popup box
+        
+        present(popup, animated:true)
+    }
+    
+    
     @IBAction func onAttackButtonPressed(_ sender: UIButton) {
         
         var yourAttack:Int16!
