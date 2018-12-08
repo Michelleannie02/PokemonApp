@@ -115,25 +115,25 @@ class BattleViewController: UIViewController {
         default:
             return
         }
-        let health = self.enemyPokemon.pokemonHP - yourAttack
-        if(health < 0 || health == 0){
-            self.enemyHealthLabel.text = "HP: 0"
+
+        self.enemyPokemon.pokemonHP -= yourAttack
+        
+        if(self.enemyPokemon.pokemonHP <= 0){
+            
+            self.enemyPokemon.pokemonHP = 0
             gameMessageLabel.text = "You Won. Go Back to Battle Map to Battle More."
             self.navigationItem.setHidesBackButton(false, animated: true)
-            disableButtons()
-        }
-        else{
-            self.enemyHealthLabel.text = "HP: \(self.enemyPokemon.pokemonHP)/\(MapViewController.MAX_HEALTH)"
+
+        } else {
             gameMessageLabel.text = attackMsg
-            self.enemyPokemon.pokemonHP -= yourAttack
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                self.enemyAttack()
+            }
         }
         
+        self.enemyHealthLabel.text = "HP: \(self.enemyPokemon.pokemonHP)/\(MapViewController.MAX_HEALTH)"
         disableButtons()
-        
-        //erform(Selector("enemyAttack"), with: nil, afterDelay: 2)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-            self.enemyAttack()
-        }
+    
     }
     
     @IBAction func onSurrenderPress(_ sender: Any) {
@@ -200,19 +200,22 @@ class BattleViewController: UIViewController {
             
         }
         
-        let health = self.myPokemon.pokemonHP - attack
-        if(health < 0 || health == 0){
-            self.yourHealthLabel.text = "HP: 0"
+        self.myPokemon.pokemonHP -= attack
+        
+        if(self.myPokemon.pokemonHP <= 0){
+            
+            self.myPokemon.pokemonHP = 0
             gameMessageLabel.text = "You lost. Go Back to Battle Map to revive."
             self.navigationItem.setHidesBackButton(false, animated: true)
             disableButtons()
-        }
-        else{
-            self.yourHealthLabel.text = "HP: \(self.myPokemon.pokemonHP)/\(MapViewController.MAX_HEALTH)"
+        } else {
+            enableButtons()
             gameMessageLabel.text = attackMessage
-            self.myPokemon.pokemonHP -= attack
         }
-        enableButtons()
+        
+        self.yourHealthLabel.text = "HP: \(self.myPokemon.pokemonHP)/\(MapViewController.MAX_HEALTH)"
+        
+        
         
     }
     
