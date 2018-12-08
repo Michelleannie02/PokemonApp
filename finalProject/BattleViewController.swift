@@ -121,17 +121,21 @@ class BattleViewController: UIViewController {
         if(self.enemyPokemon.pokemonHP <= 0){
             
             self.enemyPokemon.pokemonHP = 0
-            gameMessageLabel.text = "You Won. Go Back to Battle Map to Battle More."
+            gameMessageLabel.text = "You Won. You get 3XP. Go Back to Battle Map to Battle More."
             self.navigationItem.setHidesBackButton(false, animated: true)
+            self.myPokemon.pokemonEXP += 3
+            self.enemyHealthLabel.text = "HP: \(self.enemyPokemon.pokemonHP)/\(MapViewController.MAX_HEALTH)"
+            self.enemyPokemon.pokemonHP = 100
+            //TODO: Add money
 
         } else {
             gameMessageLabel.text = attackMsg
+            self.enemyHealthLabel.text = "HP: \(self.enemyPokemon.pokemonHP)/\(MapViewController.MAX_HEALTH)"
             DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                 self.enemyAttack()
             }
         }
         
-        self.enemyHealthLabel.text = "HP: \(self.enemyPokemon.pokemonHP)/\(MapViewController.MAX_HEALTH)"
         disableButtons()
     
     }
@@ -147,7 +151,7 @@ class BattleViewController: UIViewController {
             DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
                 self.enemyAttack()
             }
-            //perform(Selector("enemyAttack"), with: nil, afterDelay: 3)
+
         } else {
             self.navigationItem.setHidesBackButton(false, animated: true)
             self.gameMessageLabel.text = " YOU SURRENDERED. YOU MAY RETURN TO THE MAP WITH THE BUTTON ABOVE"
@@ -190,7 +194,7 @@ class BattleViewController: UIViewController {
                     }
                 case 4:
                     if(Int16(goatSlapAttack) > myPokemon.pokemonDefense) {
-                        attack = Int16(upperCutAttack) - myPokemon.pokemonDefense
+                        attack = Int16(goatSlapAttack) - myPokemon.pokemonDefense
                         attackMessage = "YOU GOT GOAT SLAPPED FOR \(attack!) DAMAGE. \(myPokemon.pokemonName!.uppercased())'S TURN"
                         run = false
                     }
@@ -207,6 +211,7 @@ class BattleViewController: UIViewController {
             self.myPokemon.pokemonHP = 0
             gameMessageLabel.text = "You lost. Go Back to Battle Map to revive."
             self.navigationItem.setHidesBackButton(false, animated: true)
+            //TODO: Deduct money
             disableButtons()
         } else {
             enableButtons()

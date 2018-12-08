@@ -21,11 +21,12 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     @IBOutlet var mapView: MKMapView!
     
     @IBOutlet weak var pokemonImage: UIImageView!
+    @IBOutlet weak var pokemonLevelUpButton: UIButton!
     @IBOutlet weak var pokemonNameLabel: UILabel!
     @IBOutlet weak var pokemonHPLabel: UILabel!
     @IBOutlet weak var pokemonEXPLabel: UILabel!
-    @IBOutlet weak var pokemonAttackLabel: UILabel!
-    @IBOutlet weak var pokemonDefenseLabel: UILabel!
+    @IBOutlet weak var pokemonStatsLabel: UILabel!
+    @IBOutlet weak var pokemonStatusLabel: UILabel!
     
     let enemyPokemon = ["https://pokeapi.co/api/v2/pokemon/salamence/",
         "https://pokeapi.co/api/v2/pokemon/tyranitar/",
@@ -41,8 +42,8 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     var myContext:NSManagedObjectContext!
     
-    static let MAX_HEALTH:Int = 100
-    static let MAX_EXP:Int = 5
+    static var MAX_HEALTH:Int = 100
+    static let MAX_EXP:Int = 6
     
     func addingPins() {
         //pokemonStatsLabel.text = "\(self.pokemonStats)  HP: 100"
@@ -111,6 +112,22 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         mapView.addAnnotation(pin6)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        self.pokemonHPLabel.text = "HP: \(self.myPokemon.pokemonHP)/\(MapViewController.MAX_HEALTH)"
+        self.pokemonEXPLabel.text = "LEVEL \(self.myPokemon.pokemonLevel) - EXP: \(self.myPokemon.pokemonEXP)/\(MapViewController.MAX_EXP)"
+        
+        if (self.myPokemon.pokemonEXP == Int16(MapViewController.MAX_EXP)) {
+            pokemonLevelUpButton.isEnabled = true
+            mapView.isUserInteractionEnabled = false
+            self.pokemonStatusLabel.text = "LEVEL UP YOUR POKEMON TO CONTINUE!"
+        }
+        
+        if (self.myPokemon.pokemonHP == 0) {
+            self.pokemonStatusLabel.text = "HEAL YOUR POKEMON TO CONTINUE!"
+            mapView.isUserInteractionEnabled = false
+        }
+    }
+    
     func loadPokemonImages() {
         
         //MARK: Getting Images for the random pokemons
@@ -160,7 +177,11 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
         myContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-
+        
+        pokemonLevelUpButton.isEnabled = false
+        pokemonStatusLabel.text = ""
+        mapView.isUserInteractionEnabled = true
+        
         var databaseResults = [Pokemon]()
         let fetchRequest:NSFetchRequest<Pokemon> = Pokemon.fetchRequest()
         
@@ -184,8 +205,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             pokemonNameLabel.text = self.myPokemon.pokemonName!.uppercased()
             pokemonHPLabel.text = "HP: \(self.myPokemon.pokemonHP)/\(MapViewController.MAX_HEALTH)"
             pokemonEXPLabel.text = "LEVEL \(self.myPokemon.pokemonLevel) - EXP: \(self.myPokemon.pokemonEXP)/\(MapViewController.MAX_EXP)"
-            pokemonAttackLabel.text = "ATTACK: \(self.myPokemon.pokemonAttack)"
-            pokemonDefenseLabel.text = "DEFENSE: \(self.myPokemon.pokemonDefense)"
+            pokemonStatsLabel.text = "ATT: \(self.myPokemon.pokemonAttack)  DEF: \(self.myPokemon.pokemonDefense)"
             
         } catch {
             print ("Error loading selected pokemon")
@@ -255,6 +275,54 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         }
         annotationView?.canShowCallout = true
         return annotationView!
+    }
+    
+    //MARK: - Actions
+    
+    @IBAction func onLevelUpPress(_ sender: Any) {
+        
+        self.pokemonLevelUpButton.isEnabled = false
+        
+        self.myPokemon.pokemonEXP = 0
+        self.myPokemon.pokemonLevel += 1
+        self.myPokemon.pokemonAttack += 3
+        self.myPokemon.pokemonDefense += 2
+
+        MapViewController.MAX_HEALTH += 5
+        self.myPokemon.pokemonHP = Int16(MapViewController.MAX_HEALTH)
+        
+        pokemonEXPLabel.text = "LEVEL \(self.myPokemon.pokemonLevel) - EXP: \(self.myPokemon.pokemonEXP)/\(MapViewController.MAX_EXP)"
+        pokemonStatsLabel.text = "ATT: \(self.myPokemon.pokemonAttack)  DEF: \(self.myPokemon.pokemonDefense)"
+        pokemonHPLabel.text = "HP: \(self.myPokemon.pokemonHP)/\(MapViewController.MAX_HEALTH)"
+        
+        updateStats()
+        
+        self.pokemonStatusLabel.text = ""
+        mapView.isUserInteractionEnabled = true
+    }
+    
+    func updateStats(){
+        
+        let popup = UIAlertController(title: "Level Up", message: "Congrats, you have reached Level \(self.myPokemon.pokemonLevel). Your updateed stats: ATT: \(self.myPokemon.pokemonAttack), DEF: \(self.myPokemon.pokemonDefense), HP: \(self.myPokemon.pokemonHP)", preferredStyle: .alert)
+        
+        let okButton = UIAlertAction(title: "OK", style: .default, handler: nil)  // creating & configuring the button
+        
+        popup.addAction(okButton)             // adds the button to your popup box
+        
+        present(popup, animated:true)
+        
+    }
+    
+    @IBAction func onHospitalPress(_ sender: Any) {
+        //TODO: Charge the user money! no free healthcare this aint Canada
+        self.myPokemon.pokemonHP = 100
+        pokemonHPLabel.text = "HP: \(self.myPokemon.pokemonHP)/\(MapViewController.MAX_HEALTH)"
+        
+        self.pokemonStatusLabel.text = ""
+        mapView.isUserInteractionEnabled = true
+    }
+    
+    @IBAction func onLeaderboardsPress(_ sender: Any) {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
