@@ -149,16 +149,58 @@ class BattleViewController: UIViewController {
     
     func enemyAttack() {
         
-        let kickAttack = enemyPokemon.pokemonAttack
         let punchAttack = enemyPokemon.pokemonAttack
+        let kickAttack = enemyPokemon.pokemonAttack
         let upperCutAttack = Double(enemyPokemon.pokemonAttack) * 1.1
         let goatSlapAttack = Double(enemyPokemon.pokemonAttack) * 1.3
         
         var attack:Int16!
         var attackMessage:String!
         
-        print("\(self.enemyPokemon.pokemonAttack)")
+        var run:Bool = true
+        var rNG:Int!
         
+        while (run == true) {
+            rNG = Int.random(in: 1...4)
+            switch rNG {
+                case 1:
+                    if (punchAttack >= self.myPokemon.pokemonDefense) {
+                        attack = Int16(punchAttack) - self.myPokemon.pokemonDefense
+                        attackMessage = "YOU GOT PUNCHED FOR \(attack!) DAMAGE. \(myPokemon.pokemonName!.uppercased())'S TURN"
+                        run = false
+                    }
+                case 2:
+                    if (kickAttack >= self.myPokemon.pokemonDefense) {
+                        attack = Int16(kickAttack) - self.myPokemon.pokemonDefense
+                        attackMessage = "YOU GOT KICKED FOR \(attack!) DAMAGE. \(myPokemon.pokemonName!.uppercased())'S TURN"
+                        run = false
+                    }
+                case 3:
+                    if(Int16(upperCutAttack) > myPokemon.pokemonDefense) {
+                        attack = Int16(upperCutAttack) - myPokemon.pokemonDefense
+                        attackMessage = "YOU GOT UPPER CUTTED FOR \(attack!) DAMAGE. \(myPokemon.pokemonName!.uppercased())'S TURN"
+                        run = false
+                    }
+                case 4:
+                    if(Int16(goatSlapAttack) > myPokemon.pokemonDefense) {
+                        attack = Int16(upperCutAttack) - myPokemon.pokemonDefense
+                        attackMessage = "YOU GOT GOAT SLAPPED FOR \(attack!) DAMAGE. \(myPokemon.pokemonName!.uppercased())'S TURN"
+                        run = false
+                    }
+                default:
+                    print("error with enemy attacks")
+            }
+            
+        }
+        
+        self.myPokemon.pokemonHP -= attack
+        self.yourHealthLabel.text = "HP: \(self.myPokemon.pokemonHP)/\(MapViewController.MAX_HEALTH)"
+        
+        gameMessageLabel.text = attackMessage
+        
+        enableButtons()
+        
+        /*
         if(kickAttack > myPokemon.pokemonDefense) {
             attack = Int16(kickAttack) - self.myPokemon.pokemonDefense
             attackMessage = "YOU GOT KICKED FOR \(attack!) DAMAGE. \(myPokemon.pokemonName!.uppercased())'S TURN"
@@ -182,7 +224,7 @@ class BattleViewController: UIViewController {
         gameMessageLabel.text = attackMessage
         
         enableButtons()
-        
+        */
     }
     
     /*
