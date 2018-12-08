@@ -536,40 +536,40 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="57H-gd-ib7">
+                            <button opaque="NO" tag="2" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="57H-gd-ib7">
                                 <rect key="frame" x="114" y="796" width="40" height="43"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Papyrus" family="Papyrus" pointSize="20"/>
                                 <state key="normal" title="Kick"/>
                                 <connections>
-                                    <action selector="onKickPress:" destination="XCS-TM-yi1" eventType="touchUpInside" id="iRw-r9-75n"/>
+                                    <action selector="onAttackButtonPressed:" destination="XCS-TM-yi1" eventType="touchUpInside" id="UtV-9a-NS5"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JYb-Az-Sux">
+                            <button opaque="NO" tag="1" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JYb-Az-Sux">
                                 <rect key="frame" x="18" y="795" width="56" height="43"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Papyrus" family="Papyrus" pointSize="20"/>
                                 <state key="normal" title="Punch"/>
                                 <connections>
-                                    <action selector="onPunchPress:" destination="XCS-TM-yi1" eventType="touchUpInside" id="C5a-rC-VIt"/>
+                                    <action selector="onAttackButtonPressed:" destination="XCS-TM-yi1" eventType="touchUpInside" id="IAh-mP-VF3"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ce4-f4-Um3">
+                            <button opaque="NO" tag="3" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ce4-f4-Um3">
                                 <rect key="frame" x="191" y="795" width="92" height="43"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Papyrus" family="Papyrus" pointSize="20"/>
                                 <state key="normal" title="Upper cut"/>
                                 <connections>
-                                    <action selector="onUpperCutPress:" destination="XCS-TM-yi1" eventType="touchUpInside" id="eUM-mo-EXJ"/>
+                                    <action selector="onAttackButtonPressed:" destination="XCS-TM-yi1" eventType="touchUpInside" id="jxA-Ll-f30"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x6b-AP-GHL">
-                                <rect key="frame" x="309" y="796" width="87" height="43"/>
+                            <button opaque="NO" tag="4" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x6b-AP-GHL">
+                                <rect key="frame" x="308" y="796" width="87" height="43"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Papyrus" family="Papyrus" pointSize="20"/>
                                 <state key="normal" title="Goat slap"/>
                                 <connections>
-                                    <action selector="onGoatSlapPress:" destination="XCS-TM-yi1" eventType="touchUpInside" id="VH8-vv-05E"/>
+                                    <action selector="onAttackButtonPressed:" destination="XCS-TM-yi1" eventType="touchUpInside" id="kOj-sh-dDE"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qn5-JE-0bm">

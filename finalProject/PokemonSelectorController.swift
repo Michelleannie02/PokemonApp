@@ -101,7 +101,7 @@ class PokemonSelectorController: UIViewController {
                     pokemon.pokemonName = nameOutlets[iPokemon].text
                     pokemon.pokemonImage = imageURL
                     pokemon.pokemonAttack = Int16.random(in: 12 ... 20)
-                    pokemon.pokemonDefense = Int16.random(in: 6 ... 10)
+                    pokemon.pokemonDefense = Int16.random(in: 6 ... 15)
                     pokemon.pokemonHP = 100
                     pokemon.pokemonLevel = 1
                     pokemon.pokemonEXP = 0
