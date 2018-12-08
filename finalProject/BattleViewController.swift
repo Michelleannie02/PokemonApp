@@ -115,11 +115,18 @@ class BattleViewController: UIViewController {
         default:
             return
         }
-        
-        enemyPokemon.pokemonHP -= yourAttack
-        enemyHealthLabel.text = "HP: \(enemyPokemon.pokemonHP)/\(MapViewController.MAX_HEALTH)"
-        
-        gameMessageLabel.text = attackMsg
+        let health = self.enemyPokemon.pokemonHP - yourAttack
+        if(health < 0 || health == 0){
+            self.enemyHealthLabel.text = "HP: 0"
+            gameMessageLabel.text = "You Won. Go Back to Battle Map to Battle More."
+            self.navigationItem.setHidesBackButton(false, animated: true)
+            disableButtons()
+        }
+        else{
+            self.enemyHealthLabel.text = "HP: \(self.enemyPokemon.pokemonHP)/\(MapViewController.MAX_HEALTH)"
+            gameMessageLabel.text = attackMsg
+            self.enemyPokemon.pokemonHP -= yourAttack
+        }
         
         disableButtons()
         
@@ -164,13 +171,13 @@ class BattleViewController: UIViewController {
             rNG = Int.random(in: 1...4)
             switch rNG {
                 case 1:
-                    if (punchAttack >= self.myPokemon.pokemonDefense) {
+                    if (punchAttack > self.myPokemon.pokemonDefense) {
                         attack = Int16(punchAttack) - self.myPokemon.pokemonDefense
                         attackMessage = "YOU GOT PUNCHED FOR \(attack!) DAMAGE. \(myPokemon.pokemonName!.uppercased())'S TURN"
                         run = false
                     }
                 case 2:
-                    if (kickAttack >= self.myPokemon.pokemonDefense) {
+                    if (kickAttack > self.myPokemon.pokemonDefense) {
                         attack = Int16(kickAttack) - self.myPokemon.pokemonDefense
                         attackMessage = "YOU GOT KICKED FOR \(attack!) DAMAGE. \(myPokemon.pokemonName!.uppercased())'S TURN"
                         run = false
@@ -193,38 +200,20 @@ class BattleViewController: UIViewController {
             
         }
         
-        self.myPokemon.pokemonHP -= attack
-        self.yourHealthLabel.text = "HP: \(self.myPokemon.pokemonHP)/\(MapViewController.MAX_HEALTH)"
-        
-        gameMessageLabel.text = attackMessage
-        
+        let health = self.myPokemon.pokemonHP - attack
+        if(health < 0 || health == 0){
+            self.yourHealthLabel.text = "HP: 0"
+            gameMessageLabel.text = "You lost. Go Back to Battle Map to revive."
+            self.navigationItem.setHidesBackButton(false, animated: true)
+            disableButtons()
+        }
+        else{
+            self.yourHealthLabel.text = "HP: \(self.myPokemon.pokemonHP)/\(MapViewController.MAX_HEALTH)"
+            gameMessageLabel.text = attackMessage
+            self.myPokemon.pokemonHP -= attack
+        }
         enableButtons()
         
-        /*
-        if(kickAttack > myPokemon.pokemonDefense) {
-            attack = Int16(kickAttack) - self.myPokemon.pokemonDefense
-            attackMessage = "YOU GOT KICKED FOR \(attack!) DAMAGE. \(myPokemon.pokemonName!.uppercased())'S TURN"
-        }
-        else if(punchAttack > myPokemon.pokemonDefense) {
-            attack = Int16(punchAttack) - self.myPokemon.pokemonDefense
-            attackMessage = "YOU GOT PUNCHED FOR \(attack!) DAMAGE. \(myPokemon.pokemonName!.uppercased())'S TURN"
-        }
-        else if(Int16(upperCutAttack) > myPokemon.pokemonDefense) {
-            attack = Int16(upperCutAttack) - myPokemon.pokemonDefense
-            attackMessage = "YOU GOT UPPER CUTTED FOR \(attack!) DAMAGE. \(myPokemon.pokemonName!.uppercased())'S TURN"
-        }
-        else if(Int16(goatSlapAttack) > myPokemon.pokemonDefense) {
-            attack = Int16(upperCutAttack) - myPokemon.pokemonDefense
-            attackMessage = "YOU GOT GOAT SLAPPED FOR \(attack!) DAMAGE. \(myPokemon.pokemonName!.uppercased())'S TURN"
-        }
-        
-        self.myPokemon.pokemonHP -= attack
-        self.yourHealthLabel.text = "HP: \(self.myPokemon.pokemonHP)/\(MapViewController.MAX_HEALTH)"
-        
-        gameMessageLabel.text = attackMessage
-        
-        enableButtons()
-        */
     }
     
     /*
