@@ -10,34 +10,39 @@ import UIKit
 import MapKit
 import Alamofire
 import SwiftyJSON
-
+import CoreData
 
 class MapViewController: UIViewController, MKMapViewDelegate {
     
-    var pokemonImageData:UIImage!
-    var pokemonName:String!
-    var pokemonAttack:Int!
-    var pokemonDefense:Int!
+    var myPokemon:Pokemon!
     var latitude:String!
     var longitude:String!
     
     @IBOutlet var mapView: MKMapView!
+    
     @IBOutlet weak var pokemonImage: UIImageView!
     @IBOutlet weak var pokemonNameLabel: UILabel!
-    @IBOutlet weak var pokemonStatsLabel: UILabel!
+    @IBOutlet weak var pokemonHPLabel: UILabel!
+    @IBOutlet weak var pokemonEXPLabel: UILabel!
+    @IBOutlet weak var pokemonAttackLabel: UILabel!
+    @IBOutlet weak var pokemonDefenseLabel: UILabel!
     
-    let fightPokemon = ["https://pokeapi.co/api/v2/pokemon/salamence/",
+    let enemyPokemon = ["https://pokeapi.co/api/v2/pokemon/salamence/",
         "https://pokeapi.co/api/v2/pokemon/tyranitar/",
         "https://pokeapi.co/api/v2/pokemon/garchomp/",
         "https://pokeapi.co/api/v2/pokemon/rhydon/",
         "https://pokeapi.co/api/v2/pokemon/onix/"]
     
-    var pokemonFighter:String!
-    var enemyImageData:Data!
-    
+    let enemyPokemonNames = ["Salamence", "Tyranitar", "Garchomp", "Rhydon", "Onix"]
+    var enemyPokemonCollection:[Pokemon] = []
     var pokemonImages:[Data] = []
+    var selectedPokemonName:String!
+    var selectedIndex:Int!
     
-    //MARK: TODO: CHECK USER INPUT FOR LOCATION
+    var myContext:NSManagedObjectContext!
+    
+    static let MAX_HEALTH:Int = 100
+    static let MAX_EXP:Int = 5
     
     func addingPins() {
         //pokemonStatsLabel.text = "\(self.pokemonStats)  HP: 100"
@@ -74,7 +79,6 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         let pin5 = MKPointAnnotation()
         let pin6 = MKPointAnnotation()
         
-        
         // 2. Set the coordinate of the Pin (CLLocationCoordinate)
         let coord = CLLocationCoordinate2DMake(longitudeValue,latitudeValue)
         let coord2 = CLLocationCoordinate2DMake(longitudeValue-Double(random),latitudeValue-Double(random))
@@ -89,13 +93,14 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         pin4.coordinate = coord4
         pin5.coordinate = coord5
         pin6.coordinate = coord6
+        
         // 3. OPTIONAL: add a "bubble/popup"
-        pin.title = self.pokemonName
-        pin2.title = "Salamence"
-        pin3.title = "Tyranitar"
-        pin4.title = "Garchomp"
-        pin5.title = "Rhydon"
-        pin6.title = "Onix"
+        pin.title = self.myPokemon.pokemonName
+        pin2.title = self.enemyPokemonNames[0]
+        pin3.title = self.enemyPokemonNames[1]
+        pin4.title = self.enemyPokemonNames[2]
+        pin5.title = self.enemyPokemonNames[3]
+        pin6.title = self.enemyPokemonNames[4]
         
         // 4. Add the pin to the map
         mapView.addAnnotation(pin)
@@ -109,18 +114,30 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     func loadPokemonImages() {
         
         //MARK: Getting Images for the random pokemons
-        for iPokemon in 0..<self.fightPokemon.count {
+        for iPokemon in 0..<self.enemyPokemon.count {
             
-            let url = fightPokemon[iPokemon]
+            let url = enemyPokemon[iPokemon]
             
             Alamofire.request(url,method: .get, parameters:nil).responseJSON{
                 (response) in
                 if(response.result.isSuccess){
-                    print("got sucess")
                     do{
                         let json = try JSON(response.data!)
                         let imageUrl = json["sprites"]["front_default"].url!
                         let imgData:Data = try Data(contentsOf: imageUrl)
+                        
+                        let enemyPokemon = Pokemon(context: self.myContext)
+                        
+                        enemyPokemon.pokemonName = self.enemyPokemonNames[iPokemon]
+                        enemyPokemon.pokemonImage = imageUrl
+                        enemyPokemon.pokemonAttack = Int16.random(in: 12 ... 20)
+                        enemyPokemon.pokemonDefense = Int16.random(in: 6 ... 10)
+                        enemyPokemon.pokemonHP = 100
+                        enemyPokemon.pokemonLevel = 3
+                        enemyPokemon.pokemonEXP = 0
+                        
+                        self.enemyPokemonCollection.append(enemyPokemon)
+                        
                         self.pokemonImages.append(imgData)
                         if (iPokemon == 4) {
                             self.addingPins()
@@ -141,12 +158,45 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         super.viewDidLoad()
         mapView.delegate = self
         
-        pokemonImage.image = self.pokemonImageData
-        pokemonNameLabel.text = self.pokemonName
-        pokemonStatsLabel.text = "ATT: \(pokemonAttack)  DEF: \(pokemonDefense)"
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+        myContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+
+        var databaseResults = [Pokemon]()
+        let fetchRequest:NSFetchRequest<Pokemon> = Pokemon.fetchRequest()
         
+        do {
+            databaseResults = try myContext.fetch(fetchRequest)
+        } catch {
+            print("Cannot Fetch Bitch!")
+        }
+        
+        for pokemon in databaseResults {
+            if (self.selectedPokemonName == pokemon.pokemonName) {
+                self.myPokemon = pokemon
+            }
+        }
+        
+        do {
+        
+            let imageData:Data = try Data(contentsOf: self.myPokemon.pokemonImage!)
+            pokemonImage.image = UIImage(data: imageData)
+            
+            pokemonNameLabel.text = self.myPokemon.pokemonName!.uppercased()
+            pokemonHPLabel.text = "HP: \(self.myPokemon.pokemonHP)/\(MapViewController.MAX_HEALTH)"
+            pokemonEXPLabel.text = "LEVEL \(self.myPokemon.pokemonLevel) - EXP: \(self.myPokemon.pokemonEXP)/\(MapViewController.MAX_EXP)"
+            pokemonAttackLabel.text = "ATTACK: \(self.myPokemon.pokemonAttack)"
+            pokemonDefenseLabel.text = "DEFENSE: \(self.myPokemon.pokemonDefense)"
+            
+        } catch {
+            print ("Error loading selected pokemon")
+        }
         loadPokemonImages()
-        
+        do {
+            try myContext.save()
+            print("Saved!")
+        } catch {
+            print("Error Saving!")
+        }
     }
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView)
@@ -154,23 +204,23 @@ class MapViewController: UIViewController, MKMapViewDelegate {
 
         if let annotationTitle = view.annotation?.title
         {
-            if (annotationTitle == self.pokemonName) {
+            if (annotationTitle == self.myPokemon.pokemonName) {
                 return
             }
         }
         
-        pokemonFighter = (view.annotation?.title)!
+        let pokemonFighter = (view.annotation?.title)!
         switch pokemonFighter {
             case "Salamence":
-                self.enemyImageData = pokemonImages[0]
+                selectedIndex = 0
             case "Tyranitar":
-                self.enemyImageData = pokemonImages[1]
+                selectedIndex = 1
             case "Garchomp":
-                self.enemyImageData = pokemonImages[2]
+                selectedIndex = 2
             case "Rhydon":
-                self.enemyImageData = pokemonImages[3]
+                selectedIndex = 3
             case "Onix":
-                self.enemyImageData = pokemonImages[4]
+                selectedIndex = 4
             default:
                 return
         }
@@ -185,8 +235,8 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         if annotationView == nil {
             annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: "AnnotationView")
         }
-        if annotation.title == self.pokemonName {
-            annotationView?.image = self.pokemonImageData
+        if annotation.title == self.myPokemon.pokemonName {
+            annotationView?.image = self.pokemonImage.image
         }
         else if  annotation.title == "Salamence" {
             annotationView?.image = UIImage(data: pokemonImages[0])
@@ -210,13 +260,8 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let battleViewController = segue.destination as! BattleViewController
         
-        battleViewController.pokemonAttacker = self.pokemonFighter
-        battleViewController.pokemonAttackerImage = self.enemyImageData
-        
-        battleViewController.yourName = self.pokemonName
-        battleViewController.yourAttack = self.pokemonAttack
-        battleViewController.yourDefense = self.pokemonDefense
-        battleViewController.yourImageData = self.pokemonImageData
+        battleViewController.enemyPokemon = self.enemyPokemonCollection[selectedIndex]
+        battleViewController.myPokemon = self.myPokemon
         
     }
 

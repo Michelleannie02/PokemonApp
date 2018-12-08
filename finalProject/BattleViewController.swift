@@ -30,94 +30,106 @@ class BattleViewController: UIViewController {
     @IBOutlet weak var surrenderButton: UIButton!
     
     //MARK: - Variables
-    
-    var pokemonAttacker:String!
-    var pokemonAttackerImage:Data!
-    var pokemonAttackerHP:Int!
-    var enemyAttack:Int!
-    var enemyDefense:Int!
-    
-    var pokemonLevel:Int!
-    
-    var yourName:String!
-    var yourAttack:Int!
-    var yourDefense:Int!
-    var yourImageData:UIImage!
-    var yourHP:Int!
-    
+    var myPokemon:Pokemon!
+    var enemyPokemon:Pokemon!
+    var imageData:Data!
+        
     //MARK: - Default Functiom
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //**** TEMP ****
-        pokemonLevel = 1
-        //**************
-        
         self.navigationItem.setHidesBackButton(true, animated: true)
         
-        enemyNameLabel.text = pokemonAttacker
-        enemyAttack = Int.random(in: 12 ... 20)
-        enemyDefense = Int.random(in: 6 ... 10)
-        enemyStatsLabel.text = "ATT: \(enemyAttack)  DEF: \(enemyDefense)"
-        enemyImage.image = UIImage(data: pokemonAttackerImage)
+        enemyNameLabel.text = enemyPokemon.pokemonName
+        enemyStatsLabel.text = "ATT: \(enemyPokemon.pokemonAttack)  DEF: \(enemyPokemon.pokemonDefense)"
+        enemyHealthLabel.text = "HP: \(enemyPokemon.pokemonHP)/\(MapViewController.MAX_HEALTH)"
+        do {
+            imageData = try Data(contentsOf: self.enemyPokemon.pokemonImage!)
+            enemyImage.image = UIImage(data: imageData)
+        } catch {
+            print("error with enemy image")
+        }
         
         gameMessageLabel.text = "YOUR MOVE FIRST"
         
-        yourNameLabel.text = yourName
-        yourStatsLabel.text = "ATT: \(yourAttack)  DEF: \(yourDefense)"
-        yourImage.image = yourImageData!
+        yourNameLabel.text = myPokemon.pokemonName
+        yourStatsLabel.text = "ATT: \(myPokemon.pokemonAttack)  DEF: \(myPokemon.pokemonDefense)"
+        yourHealthLabel.text = "HP: \(myPokemon.pokemonHP)/\(MapViewController.MAX_HEALTH)"
+        do {
+            imageData = try Data(contentsOf: self.myPokemon.pokemonImage!)
+            yourImage.image = UIImage(data: imageData)
+        } catch {
+            print("error with player image")
+        }
         
-        pokemonAttackerHP = 100
-        //**** TEMP ****
-        yourHP = 100
-        //**************
-        
-        enemyHealthLabel.text = "\(self.pokemonAttackerHP)"
-        yourHealthLabel.text = "\(self.yourHP)"
-        
-        if (pokemonLevel >= 2) {
+        if (myPokemon.pokemonLevel >= 2) {
             upperCutButton.isEnabled = true
         } else {
             upperCutButton.isEnabled = false
         }
         
-        if (pokemonLevel >= 3) {
+        if (myPokemon.pokemonLevel >= 3) {
             goatSlapButton.isEnabled = true
         } else {
             goatSlapButton.isEnabled = false
         }
     }
     
+    func disableButtons() {
+        self.punchButton.isEnabled = false
+        self.kickButton.isEnabled = false
+        self.upperCutButton.isEnabled = false
+        self.goatSlapButton.isEnabled = false
+        self.surrenderButton.isEnabled = false
+    }
+    
+    func enableButtons() {
+        self.punchButton.isEnabled = true
+        self.kickButton.isEnabled = true
+        self.upperCutButton.isEnabled = true
+        self.goatSlapButton.isEnabled = true
+        self.surrenderButton.isEnabled = true
+    }
+    
     //MARK: - Actions
     
     @IBAction func onPunchPress(_ sender: Any) {
-        var yourAttack = self.yourAttack - self.enemyDefense
-        gameMessageLabel.text = "YOU HIT FOR \(yourAttack) DAMAGE"
         
+        let yourAttack = self.myPokemon.pokemonAttack - self.enemyPokemon.pokemonDefense
+        gameMessageLabel.text = "YOU PUNCHED FOR \(yourAttack) DAMAGE. \(enemyPokemon.pokemonName!.uppercased())'S TURN"
+        disableButtons()
     }
     
     @IBAction func onKickPress(_ sender: Any) {
+        
+        let yourAttack = self.myPokemon.pokemonAttack - self.enemyPokemon.pokemonDefense
+        gameMessageLabel.text = "YOU KICKED FOR \(yourAttack) DAMAGE. \(enemyPokemon.pokemonName!.uppercased())'S TURN"
+        disableButtons()
     }
     
     @IBAction func onUpperCutPress(_ sender: Any) {
+        let yourAttack = (Double(self.myPokemon.pokemonAttack) * 1.1) - Double(self.enemyPokemon.pokemonDefense)
+        gameMessageLabel.text = "YOU UPPER CUTTED FOR \(yourAttack) DAMAGE. \(enemyPokemon.pokemonName!.uppercased())'S TURN"
+        disableButtons()
     }
     
     @IBAction func onGoatSlapPress(_ sender: Any) {
+        let yourAttack = (Double(self.myPokemon.pokemonAttack) * 1.3) - Double(self.enemyPokemon.pokemonDefense)
+        gameMessageLabel.text = "YOU GOAT SLAPPED FOR \(yourAttack) DAMAGE. \(enemyPokemon.pokemonName!.uppercased())'S TURN"
+        disableButtons()
     }
     
     @IBAction func onSurrenderPress(_ sender: Any) {
+        
+        disableButtons()
+        
         let random = Int.random(in: 0 ... 1)
         if(random == 0) {
             self.navigationItem.setHidesBackButton(true, animated: true)
-
+            self.gameMessageLabel.text = "SURRENDER FAILED. \(enemyPokemon.pokemonName!.uppercased())'S TURN"
         } else {
             self.navigationItem.setHidesBackButton(false, animated: true)
-            self.punchButton.isEnabled = false
-            self.kickButton.isEnabled = false
-            self.upperCutButton.isEnabled = false
-            self.goatSlapButton.isEnabled = false
-            self.surrenderButton.isEnabled = false
-            self.gameMessageLabel.text = "SURRENDERED. YOU MAY GO BACK OR VIEW STATS"
+            self.gameMessageLabel.text = "SURRENDERED. YOU MAY RETURN TO THE MAP WITH THE BUTTON ABOVE"
         }
     }
     

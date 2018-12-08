@@ -9,6 +9,7 @@
 import UIKit
 import Alamofire
 import SwiftyJSON
+import CoreData
 
 class PokemonSelectorController: UIViewController {
 
@@ -42,9 +43,13 @@ class PokemonSelectorController: UIViewController {
     @IBOutlet weak var welcomeLabel: UILabel!
     
     var name:String!
-    var selectedIndex:Int!
+    var selectedPokemon:String!
     var long:String!
     var lat:String!
+    
+    let myContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    
+    var pokemonCollection:[Pokemon] = []
     
     let pokemonImages = ["https://pokeapi.co/api/v2/pokemon/pikachu/",
                          "https://pokeapi.co/api/v2/pokemon/eevee/",
@@ -61,14 +66,23 @@ class PokemonSelectorController: UIViewController {
         //***CHANGE ME***
         //welcomeLabel.text = "Welcome \(self.name!), pick a Pokemon"
         welcomeLabel.text = "Welcome, pick a Pokemon"
-        loadPokemon()
+        
+        loadPokemonFromJSON()
+        do {
+            try myContext.save()
+            print("Saved!")
+        } catch {
+            print("Error Saving!")
+        }
     }
     
-    func loadPokemon() {
+    func loadPokemonFromJSON() {
         
-        let imageOutlets:[UIImageView] = [self.pikachuImage, self.eeveeImage, self.snorlaxImage, self.charizardImage, self.charmanderImage, self.squirtleImage, self.bulbasaurImage, self.blastoiseImage]
+        let nameOutlets:[UILabel] = [self.pikachuNameLabel, self.eeveeNameLabel, self.snorlaxNameLabel, self.charizardNameLabel, self.charmanderNameLabel, self.squirtleNameLabel, self.bulbasaurNameLabel, self.blastoiseNameLabel]
         
-        let labelOutlets:[UILabel] = [self.pikachuLabel, self.eeveeLabel, self.snorlaxLabel, self.charizardLabel, self.charmanderLabel, self.squirtleLabel, self.bulbasaurLabel, self.blastoiseLabel]
+        let imageViews:[UIImageView] = [self.pikachuImage, self.eeveeImage, self.snorlaxImage, self.charizardImage, self.charmanderImage, self.squirtleImage, self.bulbasaurImage, self.blastoiseImage]
+        
+        let statsOutlets:[UILabel] = [self.pikachuLabel, self.eeveeLabel, self.snorlaxLabel, self.charizardLabel, self.charmanderLabel, self.squirtleLabel, self.bulbasaurLabel, self.blastoiseLabel]
         
         for iPokemon in 0..<self.pokemonImages.count {
             
@@ -78,32 +92,38 @@ class PokemonSelectorController: UIViewController {
             Alamofire.request(url, method: .get, parameters: nil).responseJSON{
                 (response) in
                 if (response.result.isSuccess) {
-                    do{
-                        
-                        let json = try JSON(response.data!)
-                        let imageUrl = json["sprites"]["front_default"].url!
-                        let imgData:Data = try Data(contentsOf: imageUrl)
-                                                
-                        imageOutlets[iPokemon].image = UIImage(data: imgData)
-                        let attack = Int.random(in: 12 ... 20)
-                        let defense = Int.random(in: 6 ... 10)
-                        
-                        labelOutlets[iPokemon].text = "ATT: \(attack)  DEF: \(defense)"
-                        
-                        
-                    }catch {
-                        print("error with JSON")
+
+                    let json = JSON(response.data!)
+                    let imageURL = json["sprites"]["front_default"].url!
+                    
+                    let pokemon = Pokemon(context: self.myContext)
+                    
+                    pokemon.pokemonName = nameOutlets[iPokemon].text
+                    pokemon.pokemonImage = imageURL
+                    pokemon.pokemonAttack = Int16.random(in: 12 ... 20)
+                    pokemon.pokemonDefense = Int16.random(in: 6 ... 10)
+                    pokemon.pokemonHP = 100
+                    pokemon.pokemonLevel = 1
+                    pokemon.pokemonEXP = 0
+                    
+                    do {
+                        let imgData:Data = try Data(contentsOf: imageURL)
+                        imageViews[iPokemon].image = UIImage(data: imgData)
+                        statsOutlets[iPokemon].text = "ATT: \(pokemon.pokemonAttack)  DEF: \(pokemon.pokemonDefense)"
+                    } catch {
+                        print("error")
                     }
+                    
+                    self.pokemonCollection.append(pokemon)
                 }
-                
             }
+            
         }
     }
     
     //MARK: - Actions
     func enterLocation(){
-        print(long)
-        print(lat)
+        
         let popup = UIAlertController(title: "Add a location", message: "longitude and latitude", preferredStyle: .alert)
         
         popup.addTextField()
@@ -112,15 +132,10 @@ class PokemonSelectorController: UIViewController {
         let cancelButton = UIAlertAction(title: "Cancel", style: .default, handler: nil)  // creating & configuring the button
         let saveButton = UIAlertAction(title: "Save", style: .default, handler: {
             action in
-            do{
                 self.long = popup.textFields?[0].text
                 self.lat = popup.textFields?[1].text
                 self.performSegue(withIdentifier: "segueMap", sender: nil)
-                
-            }
-            catch{
-                print("error")
-            }})
+            })
         
         popup.addAction(saveButton)             // adds the button to your popup box
         popup.addAction(cancelButton)
@@ -133,71 +148,52 @@ class PokemonSelectorController: UIViewController {
         
     }
     
-    
-    
     //Unfortunately we need to have individual actions for each gesture, I tried many times to put it into one method but it just doesn't work.
     @IBAction func onPikachuPress(_ sender: UITapGestureRecognizer) {
-        selectedIndex = 0
+        selectedPokemon = "Pikachu"
         enterLocation()
     }
     @IBAction func onEeveePress(_ sender: UITapGestureRecognizer) {
-        selectedIndex = 1
+        selectedPokemon = "Eevee"
         enterLocation()
     }
     @IBAction func onSnorlaxPress(_ sender: UITapGestureRecognizer) {
-        selectedIndex = 2
+        selectedPokemon = "Snorlax"
         enterLocation()
     }
     @IBAction func onCharizardPress(_ sender: UITapGestureRecognizer) {
-        selectedIndex = 3
+        selectedPokemon = "Charizard"
         enterLocation()
     }
     @IBAction func onCharmanderPress(_ sender: UITapGestureRecognizer) {
-        selectedIndex = 4
+        selectedPokemon = "Charmander"
         enterLocation()
     }
     @IBAction func onSquirtlePress(_ sender: UITapGestureRecognizer) {
-        selectedIndex = 5
+        selectedPokemon = "Snorlax"
         enterLocation()
     }
     @IBAction func onBulbasaurPress(_ sender: UITapGestureRecognizer) {
-        selectedIndex = 6
+        selectedPokemon = "Bulbasaur"
         enterLocation()
     }
     @IBAction func onBlastoisePress(_ sender: UITapGestureRecognizer) {
-        selectedIndex = 7
+        selectedPokemon = "Blastoise"
         enterLocation()
     }
-    
-    
     
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        let imageOutlets:[UIImageView] = [self.pikachuImage, self.eeveeImage, self.snorlaxImage, self.charizardImage, self.charmanderImage, self.squirtleImage, self.bulbasaurImage, self.blastoiseImage]
-        
-        let labelOutlets:[UILabel] = [self.pikachuLabel, self.eeveeLabel, self.snorlaxLabel, self.charizardLabel, self.charmanderLabel, self.squirtleLabel, self.bulbasaurLabel, self.blastoiseLabel]
-        
-        let nameOutlets:[UILabel] = [self.pikachuNameLabel, self.eeveeNameLabel, self.snorlaxNameLabel, self.charizardNameLabel, self.charmanderNameLabel, self.squirtleNameLabel, self.bulbasaurNameLabel, self.blastoiseNameLabel]
-        
         let destinationNavigationController = segue.destination as! UINavigationController
         let targetController = destinationNavigationController.topViewController as! MapViewController
         
-        do {
-            targetController.pokemonImageData = imageOutlets[selectedIndex].image
-            targetController.pokemonName = nameOutlets[selectedIndex].text
-            targetController.pokemonStats = labelOutlets[selectedIndex].text
-            targetController.longitude = long
-            targetController.latitude = lat
-            
-            //TODO: FIX MEEEEEEEEE
-            //mapViewController.pokemonStats = statsOutlets[selectedIndex].text
-            
-        } catch {
-            print ("error with selected pokemon")
-        }
+        targetController.selectedPokemonName = selectedPokemon
+
+        targetController.longitude = long
+        targetController.latitude = lat
         
     }
     

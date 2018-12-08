@@ -70,6 +70,7 @@
 		06E423E321B966A10069EC08 /* finalProject */ = {
 			isa = PBXGroup;
 			children = (
+				362F44B321BB6C10008ACCC6 /* New Group */,
 				06E423E421B966A10069EC08 /* AppDelegate.swift */,
 				06E423E621B966A10069EC08 /* ViewController.swift */,
 				06E423E821B966A10069EC08 /* Main.storyboard */,
@@ -82,6 +83,13 @@
 				067BF7FC21BA466400DFB1E4 /* BattleViewController.swift */,
 			);
 			path = finalProject;
+			sourceTree = "<group>";
+		};
+		362F44B321BB6C10008ACCC6 /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "New Group";
 			sourceTree = "<group>";
 		};
 		4D4C282C18FDF310D5D2E33B /* Frameworks */ = {
