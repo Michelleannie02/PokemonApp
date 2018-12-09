@@ -33,6 +33,7 @@ class BattleViewController: UIViewController {
     var myPokemon:Pokemon!
     var enemyPokemon:Pokemon!
     var imageData:Data!
+    var layer1 = CALayer()
         
     //MARK: - Default Functiom
     override func viewDidLoad() {
@@ -147,6 +148,33 @@ class BattleViewController: UIViewController {
             }
         }
         
+        //1. build a CALayer object
+        layer1 = CALayer.init()
+        
+        //-- set the photo, intial position, h/w layer
+        layer1.contents = enemyImage.image?.cgImage    //CoreGraphics
+        layer1.bounds = CGRect(x: 0.0, y: 0.0, width: 150, height: 150)
+        layer1.position = CGPoint(x: 205, y: 283)
+        self.view.layer.addSublayer(layer1)
+        
+        //self.view.frame.maxX --> to get the max width
+        //self.view.frame.maxY --> to get the max height
+        
+        //2. build a CABasicAnimation object
+        let rotateAnimation = CABasicAnimation(keyPath:"transform.rotation")
+        rotateAnimation.timingFunction = CAMediaTimingFunction(name:CAMediaTimingFunctionName.easeInEaseOut
+        )
+        
+        rotateAnimation.fromValue = 0       //  start at 0 degress
+        rotateAnimation.toValue = -Double.pi * 1.5  // end at 360
+        
+        
+        rotateAnimation.duration = 0.5
+        rotateAnimation.repeatCount = 3
+        
+        //3. Add the BasicAnimation to the CAlayer
+        layer1.add(rotateAnimation,forKey:nil)
+        
         disableButtons()
     
     }
@@ -186,7 +214,7 @@ class BattleViewController: UIViewController {
             let random = Int.random(in: 0 ... 1)
             if(random == 0) {
                 self.navigationItem.setHidesBackButton(true, animated: true)
-                self.gameMessageLabel.text = "\(enemyPokemon.pokemonName!.uppercased())'S SURRENDER FAILED. \(self.myPokemon.pokemonName)'S TURN"
+                self.gameMessageLabel.text = "\(enemyPokemon.pokemonName!.uppercased())'S SURRENDER FAILED. \(String(describing: self.myPokemon.pokemonName))'S TURN"
                 enableButtons()
                 return
             } else {
@@ -231,6 +259,7 @@ class BattleViewController: UIViewController {
                 }
                 
             }
+            
             self.myPokemon.pokemonHP -= attack
             
             if(self.myPokemon.pokemonHP <= 0){
@@ -247,10 +276,33 @@ class BattleViewController: UIViewController {
             
             self.yourHealthLabel.text = "HP: \(self.myPokemon.pokemonHP)/\(MapViewController.MAX_HEALTH)"
         }
+       
+        //MARK: Animations for user being attacked
         
-    
+        //1. build a CALayer object
+        layer1 = CALayer.init()
+        
+        //-- set the photo, intial position, h/w layer
+        layer1.contents = yourImage.image?.cgImage    //CoreGraphics
+        layer1.bounds = CGRect(x: 0.0, y: 0.0, width: 150, height: 150)
+        layer1.position = CGPoint(x: 205, y: 615)
+        self.view.layer.addSublayer(layer1)
         
         
+        //2. build a CABasicAnimation object
+        let rotateAnimation = CABasicAnimation(keyPath:"transform.rotation")
+        rotateAnimation.timingFunction = CAMediaTimingFunction(name:CAMediaTimingFunctionName.easeInEaseOut
+        )
+        
+        rotateAnimation.fromValue = 0       //  start at 0 degress
+        rotateAnimation.toValue = -Double.pi * 2 // end at 360
+        
+        
+        rotateAnimation.duration = 1
+        rotateAnimation.repeatCount = 4
+        
+        //3. Add the BasicAnimation to the CAlayer
+        layer1.add(rotateAnimation,forKey:nil)
         
     }
     

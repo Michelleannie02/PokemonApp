@@ -10,6 +10,8 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 import CoreData
+import Firebase
+import FirebaseFirestore
 
 class PokemonSelectorController: UIViewController {
 
@@ -47,6 +49,9 @@ class PokemonSelectorController: UIViewController {
     var long:String!
     var lat:String!
     
+    var documentID:String!
+    var db: Firestore!
+    
     let myContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     var pokemonCollection:[Pokemon] = []
@@ -62,10 +67,19 @@ class PokemonSelectorController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        db = Firestore.firestore()
         
-        //***CHANGE ME***
-        //welcomeLabel.text = "Welcome \(self.name!), pick a Pokemon"
-        welcomeLabel.text = "Welcome, pick a Pokemon"
+        let user = db.collection("users").document(documentID)
+        user.getDocument { (document, error) in
+            if let document = document, document.exists {
+                let dataDescription = document.data()
+                self.name = (dataDescription!["name"]! as! String)
+            } else {
+                print("Document does not exist")
+            }
+        }
+        
+        welcomeLabel.text = "Welcome \(self.name!.uppercased()), pick a Pokemon"
         
         loadPokemonFromJSON()
         do {
@@ -74,6 +88,7 @@ class PokemonSelectorController: UIViewController {
         } catch {
             print("Error Saving!")
         }
+        
     }
     
     func loadPokemonFromJSON() {

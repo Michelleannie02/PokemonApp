@@ -9,6 +9,8 @@
 import UIKit
 import FirebaseAuth
 import Alamofire
+import FirebaseDatabase
+import FirebaseFirestore
 
 
 class ViewController: UIViewController {
@@ -23,9 +25,14 @@ class ViewController: UIViewController {
     
     @IBOutlet var statusLabel: UILabel!
     
+    var db: Firestore!
+    var ref: DocumentReference? = nil
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        db = Firestore.firestore()
     }
     
     //Mark: Outlet Actions
@@ -55,7 +62,18 @@ class ViewController: UIViewController {
             }
             
         }
-        
+
+        ref = db.collection("users").addDocument(data: [
+            "name": nameTextBox.text!,
+            "money": 100,
+            "email": emailTextBox.text!
+        ]) { err in
+            if let err = err {
+                print("Error adding document: \(err)")
+            } else {
+                print("Document added with ID: \(self.ref!.documentID)")
+            }
+        }
     }
     
     @IBAction func loginButtonPressed(_ sender: Any) {
@@ -91,7 +109,7 @@ class ViewController: UIViewController {
         let pickPokemonScreen = segue.destination as! PokemonSelectorController
         
         pickPokemonScreen.name = nameTextBox.text!
-     
+        pickPokemonScreen.documentID = ref!.documentID
      }
     
 }
