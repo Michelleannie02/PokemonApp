@@ -48,6 +48,7 @@ class PokemonSelectorController: UIViewController {
     var selectedPokemon:String!
     var long:String!
     var lat:String!
+    var userMoney:Int!
     
     var documentID:String!
     var db: Firestore!
@@ -65,21 +66,31 @@ class PokemonSelectorController: UIViewController {
                          "https://pokeapi.co/api/v2/pokemon/bulbasaur/",
                          "https://pokeapi.co/api/v2/pokemon/blastoise/"]
     
+    fileprivate func gettingUserData() {
+        let user = db.collection("users").whereField("email", isEqualTo: "salem.ewa@hotmail.com")
+        user.getDocuments() { (querySnapshot, err) in
+            if let err = err {
+                print("Error getting documents: \(err)")
+            } else {
+                for document in querySnapshot!.documents {
+                    print("\(document.documentID) => \(document.data())")
+                    let money = document.data()["money"]!
+                    self.userMoney = money as? Int
+                    self.name = String(describing: document.data()["name"]!)
+                    self.welcomeLabel.text = "Welcome \(self.name!.uppercased()), pick a Pokemon"
+                    self.documentID = document.documentID
+                }
+            }
+        }
+        //        welcomeLabel.text = "Welcome \(self.name.uppercased()), pick a Pokemon"
+        
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         db = Firestore.firestore()
-        
-        let user = db.collection("users").document(documentID)
-        user.getDocument { (document, error) in
-            if let document = document, document.exists {
-                let dataDescription = document.data()
-                self.name = (dataDescription!["name"]! as! String)
-            } else {
-                print("Document does not exist")
-            }
-        }
-        
-        welcomeLabel.text = "Welcome \(self.name!.uppercased()), pick a Pokemon"
+        gettingUserData()
+//        welcomeLabel.text = "Welcome \(self.name.uppercased()), pick a Pokemon"
         
         loadPokemonFromJSON()
         do {
@@ -209,6 +220,9 @@ class PokemonSelectorController: UIViewController {
 
         targetController.longitude = long
         targetController.latitude = lat
+        targetController.userName = self.name
+        targetController.userMoney = self.userMoney
+        targetController.documentID = self.documentID
         
     }
     

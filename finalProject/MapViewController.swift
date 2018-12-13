@@ -11,6 +11,8 @@ import MapKit
 import Alamofire
 import SwiftyJSON
 import CoreData
+import Firebase
+import FirebaseFirestore
 
 class MapViewController: UIViewController, MKMapViewDelegate {
     
@@ -27,6 +29,8 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     @IBOutlet weak var pokemonEXPLabel: UILabel!
     @IBOutlet weak var pokemonStatsLabel: UILabel!
     @IBOutlet weak var pokemonStatusLabel: UILabel!
+    @IBOutlet var userInfoLabel: UILabel!
+    
     
     let enemyPokemon = ["https://pokeapi.co/api/v2/pokemon/salamence/",
         "https://pokeapi.co/api/v2/pokemon/tyranitar/",
@@ -39,8 +43,12 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     var pokemonImages:[Data] = []
     var selectedPokemonName:String!
     var selectedIndex:Int!
+    var userName:String!
+    var userMoney:Int!
+    var documentID:String!
     
     var myContext:NSManagedObjectContext!
+    var db:Firestore!
     
     static var MAX_HEALTH:Int = 100
     static let MAX_EXP:Int = 6
@@ -178,6 +186,8 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         mapView.delegate = self
+        db = Firestore.firestore()
+        userInfoLabel.text = "\(self.userName!) $\(self.userMoney!)"
         
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
         myContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
@@ -186,6 +196,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         pokemonStatusLabel.text = ""
         mapView.isUserInteractionEnabled = true
         mapView.isHidden = false
+        
         
         var databaseResults = [Pokemon]()
         let fetchRequest:NSFetchRequest<Pokemon> = Pokemon.fetchRequest()
@@ -329,9 +340,13 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     @IBAction func onHospitalPress(_ sender: Any) {
         //TODO: Charge the user money! no free healthcare this aint Canada
+        self.userMoney -= 10
+        db.collection("users").document(documentID).setData([ "money": self.userMoney ], merge: true)
+
         self.myPokemon.pokemonHP = Int16(MapViewController.MAX_HEALTH)
         pokemonHPLabel.text = "HP: \(self.myPokemon.pokemonHP)/\(MapViewController.MAX_HEALTH)"
-        
+        self.userInfoLabel.text = "\(self.userName!) $\(self.userMoney!)"
+
         self.pokemonStatusLabel.text = ""
         mapView.isUserInteractionEnabled = true
         mapView.isHidden = false
