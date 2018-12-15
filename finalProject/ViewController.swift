@@ -12,7 +12,6 @@ import Alamofire
 import FirebaseDatabase
 import FirebaseFirestore
 
-
 class ViewController: UIViewController {
     
     //Mark: Outlets variables
@@ -109,7 +108,6 @@ class ViewController: UIViewController {
         let pickPokemonScreen = segue.destination as! PokemonSelectorController
         
         pickPokemonScreen.name = nameTextBox.text!
-        pickPokemonScreen.documentID = ref!.documentID
      }
     
 }

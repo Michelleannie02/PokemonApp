@@ -135,9 +135,37 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             mapView.isUserInteractionEnabled = false
             mapView.isHidden = true
         }
+        
         //TODO: Update Leaderbaords, save to the DB
         self.pokemonHPLabel.text = "HP: \(self.myPokemon.pokemonHP)/\(MapViewController.MAX_HEALTH)"
         self.pokemonEXPLabel.text = "LEVEL \(self.myPokemon.pokemonLevel) - EXP: \(self.myPokemon.pokemonEXP)/\(MapViewController.MAX_EXP)"
+        
+        
+        let docRef = db.collection("users").document(self.documentID!)
+        
+        docRef.getDocument { (document, error) in
+            if let document = document, document.exists {
+                let money = document.data()!["money"]
+                self.userMoney = (money as! Int)
+                print(self.userMoney!)
+                self.userInfoLabel.text = "Player: \(self.userName!)\nMoney: $\(self.userMoney!)"
+                if(self.userMoney <= 0 )
+                {
+                    let popup = UIAlertController(title: "Alert", message: "You are out of money! Play a match to get some", preferredStyle: .alert)
+                    
+                    let okButton = UIAlertAction(title: "OK", style: .default, handler: nil)  // creating & configuring the button
+                    
+                    popup.addAction(okButton)             // adds the button to your popup box
+                    
+                    self.present(popup, animated:true)
+                }
+            }
+            else {
+                print("Document does not exist")
+                print(self.documentID)
+            }
+        }
+        
     }
     
     func loadPokemonImages() {
@@ -187,8 +215,8 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         super.viewDidLoad()
         mapView.delegate = self
         db = Firestore.firestore()
-        userInfoLabel.text = "\(self.userName!) $\(self.userMoney!)"
-        
+        self.userInfoLabel.text = "Player: \(self.userName!)\nMoney: $\(self.userMoney!)"
+
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
         myContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
         
@@ -328,7 +356,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     func updateStats(){
         
-        let popup = UIAlertController(title: "Level Up", message: "Congrats, you have reached Level \(self.myPokemon.pokemonLevel). Your updateed stats: ATT: \(self.myPokemon.pokemonAttack), DEF: \(self.myPokemon.pokemonDefense), HP: \(self.myPokemon.pokemonHP)", preferredStyle: .alert)
+        let popup = UIAlertController(title: "Level Up", message: "Congrats, you have reached Level \(self.myPokemon.pokemonLevel). Your updated stats: ATT: \(self.myPokemon.pokemonAttack), DEF: \(self.myPokemon.pokemonDefense), HP: \(self.myPokemon.pokemonHP)", preferredStyle: .alert)
         
         let okButton = UIAlertAction(title: "OK", style: .default, handler: nil)  // creating & configuring the button
         
@@ -340,16 +368,38 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     @IBAction func onHospitalPress(_ sender: Any) {
         //TODO: Charge the user money! no free healthcare this aint Canada
-        self.userMoney -= 10
-        db.collection("users").document(documentID).setData([ "money": self.userMoney ], merge: true)
-
-        self.myPokemon.pokemonHP = Int16(MapViewController.MAX_HEALTH)
-        pokemonHPLabel.text = "HP: \(self.myPokemon.pokemonHP)/\(MapViewController.MAX_HEALTH)"
-        self.userInfoLabel.text = "\(self.userName!) $\(self.userMoney!)"
-
-        self.pokemonStatusLabel.text = ""
-        mapView.isUserInteractionEnabled = true
-        mapView.isHidden = false
+        if(myPokemon.pokemonHP == MapViewController.MAX_HEALTH){
+            let popup = UIAlertController(title: "Alert", message: "You are already at Max Health!", preferredStyle: .alert)
+            
+            let okButton = UIAlertAction(title: "OK", style: .default, handler: nil)  // creating & configuring the button
+            
+            popup.addAction(okButton)             // adds the button to your popup box
+            
+            present(popup, animated:true)
+        }
+        else{
+            self.userMoney -= 10
+            if(userMoney <= 0 )
+            {
+                let popup = UIAlertController(title: "Alert", message: "You are out of money! Play a match to get some", preferredStyle: .alert)
+                
+                let okButton = UIAlertAction(title: "OK", style: .default, handler: nil)  // creating & configuring the button
+                
+                popup.addAction(okButton)             // adds the button to your popup box
+                
+                present(popup, animated:true)
+            }
+            else {
+                db.collection("users").document(documentID).setData([ "money": self.userMoney ], merge: true)
+                
+                self.myPokemon.pokemonHP = Int16(MapViewController.MAX_HEALTH)
+                pokemonHPLabel.text = "HP: \(self.myPokemon.pokemonHP)/\(MapViewController.MAX_HEALTH)"
+                self.userInfoLabel.text = "Player: \(self.userName!)\nMoney: $\(self.userMoney!)\n"
+                self.pokemonStatusLabel.text = ""
+                mapView.isUserInteractionEnabled = true
+                mapView.isHidden = false
+            }
+        }
     }
     
     @IBAction func onLeaderboardsPress(_ sender: Any) {
@@ -361,6 +411,8 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         
         battleViewController.enemyPokemon = self.enemyPokemonCollection[selectedIndex]
         battleViewController.myPokemon = self.myPokemon
+        battleViewController.documentID = self.documentID
+        battleViewController.userMoney = self.userMoney
         
     }
 

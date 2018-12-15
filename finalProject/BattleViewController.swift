@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseFirestore
+
 
 class BattleViewController: UIViewController {
     
@@ -34,10 +37,17 @@ class BattleViewController: UIViewController {
     var enemyPokemon:Pokemon!
     var imageData:Data!
     var layer1 = CALayer()
+    
+    var userMoney:Int!
+    var documentID:String!
+    var db:Firestore!
+
         
     //MARK: - Default Functiom
     override func viewDidLoad() {
         super.viewDidLoad()
+        db = Firestore.firestore()
+
         
         self.navigationItem.setHidesBackButton(true, animated: true)
         
@@ -133,7 +143,10 @@ class BattleViewController: UIViewController {
         if(self.enemyPokemon.pokemonHP <= 0){
             
             self.enemyPokemon.pokemonHP = 0
-            gameMessageLabel.text = "You Won. You get \(self.myPokemon.pokemonLevel + 1)XP. Go Back to Battle Map to Battle More."
+            gameMessageLabel.text = "You Won. You get \(self.myPokemon.pokemonLevel + 1)XP, Plus $10. Go Back to Battle Map to Battle More."
+            self.userMoney += 10
+            db.collection("users").document(documentID).setData([ "money": self.userMoney ], merge: true)
+
             self.navigationItem.setHidesBackButton(false, animated: true)
             self.myPokemon.pokemonEXP += (self.myPokemon.pokemonLevel + 1)
             self.enemyHealthLabel.text = "HP: \(self.enemyPokemon.pokemonHP)/\(MapViewController.MAX_HEALTH)"
@@ -194,6 +207,8 @@ class BattleViewController: UIViewController {
         } else {
             self.navigationItem.setHidesBackButton(false, animated: true)
             self.gameMessageLabel.text = " YOU SURRENDERED. YOU MAY RETURN TO THE MAP WITH THE BUTTON ABOVE"
+            self.userMoney -= 10
+            db.collection("users").document(documentID).setData([ "money": self.userMoney ], merge: true)
         }
     }
     
@@ -220,8 +235,10 @@ class BattleViewController: UIViewController {
             } else {
                 //TODO: Needs testing - AI will try to surrender
                 self.navigationItem.setHidesBackButton(false, animated: true)
-                self.gameMessageLabel.text = "\(enemyPokemon.pokemonName!.uppercased()) SURRENDERED. YOU WIN \(self.myPokemon.pokemonLevel + 1) XP. YOU MAY RETURN TO THE MAP WITH THE BUTTON ABOVE"
-
+                self.gameMessageLabel.text = "\(enemyPokemon.pokemonName!.uppercased()) SURRENDERED. YOU WIN \(self.myPokemon.pokemonLevel + 1) XP, Plus $10. YOU MAY RETURN TO THE MAP WITH THE BUTTON ABOVE"
+                self.userMoney += 10
+                db.collection("users").document(documentID).setData([ "money": self.userMoney ], merge: true)
+                
                 self.myPokemon.pokemonEXP += (self.myPokemon.pokemonLevel + 1)
                 self.enemyHealthLabel.text = "HP: \(self.enemyPokemon.pokemonHP)/\(MapViewController.MAX_HEALTH)"
                 self.enemyPokemon.pokemonHP = 100
@@ -266,6 +283,8 @@ class BattleViewController: UIViewController {
                 
                 self.myPokemon.pokemonHP = 0
                 gameMessageLabel.text = "You lost. Go Back to Battle Map to revive."
+                self.userMoney -= 10
+                db.collection("users").document(documentID).setData([ "money": self.userMoney ], merge: true)
                 self.navigationItem.setHidesBackButton(false, animated: true)
                 //TODO: Deduct money
                 disableButtons()
@@ -305,6 +324,7 @@ class BattleViewController: UIViewController {
         layer1.add(rotateAnimation,forKey:nil)
         
     }
+    
     
     /*
     // MARK: - Navigation

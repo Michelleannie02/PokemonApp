@@ -12,6 +12,7 @@ import SwiftyJSON
 import CoreData
 import Firebase
 import FirebaseFirestore
+import FirebaseAuth
 
 class PokemonSelectorController: UIViewController {
 
@@ -67,7 +68,7 @@ class PokemonSelectorController: UIViewController {
                          "https://pokeapi.co/api/v2/pokemon/blastoise/"]
     
     fileprivate func gettingUserData() {
-        let user = db.collection("users").whereField("email", isEqualTo: "salem.ewa@hotmail.com")
+        let user = db.collection("users").whereField("email", isEqualTo: Auth.auth().currentUser?.email! as Any)
         user.getDocuments() { (querySnapshot, err) in
             if let err = err {
                 print("Error getting documents: \(err)")
