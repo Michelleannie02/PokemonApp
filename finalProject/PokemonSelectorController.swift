@@ -50,6 +50,7 @@ class PokemonSelectorController: UIViewController {
     var long:String!
     var lat:String!
     var userMoney:Int!
+    var numWins:Int!
     
     var documentID:String!
     var db: Firestore!
@@ -78,8 +79,9 @@ class PokemonSelectorController: UIViewController {
                     let money = document.data()["money"]!
                     self.userMoney = money as? Int
                     self.name = String(describing: document.data()["name"]!)
-                    self.welcomeLabel.text = "Welcome \(self.name!.uppercased()), pick a Pokemon"
+                    self.welcomeLabel.text = "Welcome \(self.name!), pick a Pokemon"
                     self.documentID = document.documentID
+                    self.numWins = document.data()["numWins"] as? Int
                 }
             }
         }
@@ -224,7 +226,7 @@ class PokemonSelectorController: UIViewController {
         targetController.userName = self.name
         targetController.userMoney = self.userMoney
         targetController.documentID = self.documentID
-        
+        targetController.numWins = self.numWins
     }
     
 

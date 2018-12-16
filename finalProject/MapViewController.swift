@@ -46,12 +46,17 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     var userName:String!
     var userMoney:Int!
     var documentID:String!
+    var numWins:Int!
     
     var myContext:NSManagedObjectContext!
     var db:Firestore!
     
+    var users:[User] = []
+    
     static var MAX_HEALTH:Int = 100
     static let MAX_EXP:Int = 6
+    static var MONEY_GAIN:Int = 10
+    static var MONEY_LOST:Int = 10
     
     func addingPins() {
         //pokemonStatsLabel.text = "\(self.pokemonStats)  HP: 100"
@@ -147,8 +152,9 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             if let document = document, document.exists {
                 let money = document.data()!["money"]
                 self.userMoney = (money as! Int)
+                self.numWins = document.data()!["numWins"] as? Int
                 print(self.userMoney!)
-                self.userInfoLabel.text = "Player: \(self.userName!)\nMoney: $\(self.userMoney!)"
+                self.userInfoLabel.text = "\(self.userName!)\nMoney: $\(self.userMoney!)\nWins: \(self.numWins!)"
                 if(self.userMoney <= 0 )
                 {
                     let popup = UIAlertController(title: "Alert", message: "You are out of money! Play a match to get some", preferredStyle: .alert)
@@ -163,6 +169,31 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             else {
                 print("Document does not exist")
                 print(self.documentID)
+            }
+        }
+        
+        self.users.removeAll()
+        
+        db.collection("users").order(by: "numWins", descending: true).getDocuments {
+            (querySnapshot, err) in
+            if (err != nil) {
+                print("Error!")
+                print(err?.localizedDescription)
+            }
+            else {
+                
+                for user in (querySnapshot?.documents)! {
+                    
+                    let currentUser = user.data();
+                    
+                    let usr:User = User()
+                    usr.email = currentUser["email"] as? String
+                    usr.numWins = currentUser["numWins"] as? Int
+                    
+                    self.users.append(usr)
+                    //self.users = self.users.sorted(by: { $0.numWins > $1.numWins })
+                }
+                
             }
         }
         
@@ -215,7 +246,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         super.viewDidLoad()
         mapView.delegate = self
         db = Firestore.firestore()
-        self.userInfoLabel.text = "Player: \(self.userName!)\nMoney: $\(self.userMoney!)"
+        //self.userInfoLabel.text = "Player: \(self.userName!)\nMoney: $\(self.userMoney!)"
 
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
         myContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
@@ -232,7 +263,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         do {
             databaseResults = try myContext.fetch(fetchRequest)
         } catch {
-            print("Cannot Fetch Bitch!")
+            print("Cannot Fetch!")
         }
         
         for pokemon in databaseResults {
@@ -332,6 +363,9 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         self.myPokemon.pokemonAttack += 3
         self.myPokemon.pokemonDefense += 2
         
+        MapViewController.MONEY_LOST += 5
+        MapViewController.MONEY_GAIN += 5
+        
         for iPokemon in 0..<enemyPokemonCollection.count {
             enemyPokemonCollection[iPokemon].pokemonAttack += 2
             enemyPokemonCollection[iPokemon].pokemonDefense += 1
@@ -367,7 +401,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     }
     
     @IBAction func onHospitalPress(_ sender: Any) {
-        //TODO: Charge the user money! no free healthcare this aint Canada
+        //Charge the user money! no free healthcare we aint in Canada no more
         if(myPokemon.pokemonHP == MapViewController.MAX_HEALTH){
             let popup = UIAlertController(title: "Alert", message: "You are already at Max Health!", preferredStyle: .alert)
             
@@ -378,7 +412,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             present(popup, animated:true)
         }
         else{
-            self.userMoney -= 10
+            self.userMoney -= MapViewController.MONEY_LOST
             if(userMoney <= 0 )
             {
                 let popup = UIAlertController(title: "Alert", message: "You are out of money! Play a match to get some", preferredStyle: .alert)
@@ -394,25 +428,41 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                 
                 self.myPokemon.pokemonHP = Int16(MapViewController.MAX_HEALTH)
                 pokemonHPLabel.text = "HP: \(self.myPokemon.pokemonHP)/\(MapViewController.MAX_HEALTH)"
-                self.userInfoLabel.text = "Player: \(self.userName!)\nMoney: $\(self.userMoney!)\n"
+                self.userInfoLabel.text = "\(self.userName!)\nMoney: $\(self.userMoney!)\nWins: \(self.numWins!)"
                 self.pokemonStatusLabel.text = ""
                 mapView.isUserInteractionEnabled = true
                 mapView.isHidden = false
+                
+                let popup = UIAlertController(title: "Heal Successful", message: "Healed for $\(MapViewController.MONEY_LOST)", preferredStyle: .alert)
+                
+                let okButton = UIAlertAction(title: "OK", style: .default, handler: nil)  // creating & configuring the button
+                
+                popup.addAction(okButton)             // adds the button to your popup box
+                
+                present(popup, animated:true)
             }
         }
     }
     
     @IBAction func onLeaderboardsPress(_ sender: Any) {
-        //TODO:
+        performSegue(withIdentifier: "segueLeaderboards", sender: self)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let battleViewController = segue.destination as! BattleViewController
         
-        battleViewController.enemyPokemon = self.enemyPokemonCollection[selectedIndex]
-        battleViewController.myPokemon = self.myPokemon
-        battleViewController.documentID = self.documentID
-        battleViewController.userMoney = self.userMoney
+        if (sender == nil) {
+            let battleViewController = segue.destination as! BattleViewController
+            
+            battleViewController.enemyPokemon = self.enemyPokemonCollection[selectedIndex]
+            battleViewController.myPokemon = self.myPokemon
+            battleViewController.documentID = self.documentID
+            battleViewController.userMoney = self.userMoney
+            battleViewController.numWins = self.numWins
+        } else {
+            
+            let leaderboardController = segue.destination as! LeaderboardTableViewController
+            leaderboardController.users = self.users
+        }
         
     }
 

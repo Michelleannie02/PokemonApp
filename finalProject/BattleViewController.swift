@@ -38,6 +38,7 @@ class BattleViewController: UIViewController {
     var imageData:Data!
     var layer1 = CALayer()
     
+    var numWins:Int!
     var userMoney:Int!
     var documentID:String!
     var db:Firestore!
@@ -143,15 +144,15 @@ class BattleViewController: UIViewController {
         if(self.enemyPokemon.pokemonHP <= 0){
             
             self.enemyPokemon.pokemonHP = 0
-            gameMessageLabel.text = "You Won. You get \(self.myPokemon.pokemonLevel + 1)XP, Plus $10. Go Back to Battle Map to Battle More."
-            self.userMoney += 10
+            gameMessageLabel.text = "YOU WON. YOU GET \(self.myPokemon.pokemonLevel + 1)XP, PLUS $\(MapViewController.MONEY_GAIN). GO BACK TO BATTLE MAP TO BATTLE MORE."
+            self.userMoney += MapViewController.MONEY_GAIN
             db.collection("users").document(documentID).setData([ "money": self.userMoney ], merge: true)
+            db.collection("users").document(documentID).setData([ "numWins":  self.numWins + 1], merge: true)
 
             self.navigationItem.setHidesBackButton(false, animated: true)
             self.myPokemon.pokemonEXP += (self.myPokemon.pokemonLevel + 1)
             self.enemyHealthLabel.text = "HP: \(self.enemyPokemon.pokemonHP)/\(MapViewController.MAX_HEALTH)"
             self.enemyPokemon.pokemonHP = 100
-            //TODO: Add money
 
         } else {
             gameMessageLabel.text = attackMsg
@@ -206,8 +207,8 @@ class BattleViewController: UIViewController {
 
         } else {
             self.navigationItem.setHidesBackButton(false, animated: true)
-            self.gameMessageLabel.text = " YOU SURRENDERED. YOU MAY RETURN TO THE MAP WITH THE BUTTON ABOVE"
-            self.userMoney -= 10
+            self.gameMessageLabel.text = " YOU SURRENDERED AND LOST $\(MapViewController.MONEY_LOST). YOU MAY RETURN TO THE MAP WITH THE BUTTON ABOVE"
+            self.userMoney -= MapViewController.MONEY_LOST
             db.collection("users").document(documentID).setData([ "money": self.userMoney ], merge: true)
         }
     }
@@ -233,12 +234,13 @@ class BattleViewController: UIViewController {
                 enableButtons()
                 return
             } else {
-                //TODO: Needs testing - AI will try to surrender
+
                 self.navigationItem.setHidesBackButton(false, animated: true)
-                self.gameMessageLabel.text = "\(enemyPokemon.pokemonName!.uppercased()) SURRENDERED. YOU WIN \(self.myPokemon.pokemonLevel + 1) XP, Plus $10. YOU MAY RETURN TO THE MAP WITH THE BUTTON ABOVE"
-                self.userMoney += 10
+                self.gameMessageLabel.text = "\(enemyPokemon.pokemonName!.uppercased()) SURRENDERED. YOU WIN \(self.myPokemon.pokemonLevel + 1) XP, PLUS $\(MapViewController.MONEY_GAIN). YOU MAY RETURN TO THE MAP WITH THE BUTTON ABOVE"
+                self.userMoney += MapViewController.MONEY_GAIN
                 db.collection("users").document(documentID).setData([ "money": self.userMoney ], merge: true)
-                
+                db.collection("users").document(documentID).setData([ "numWins":  self.numWins + 1], merge: true)
+
                 self.myPokemon.pokemonEXP += (self.myPokemon.pokemonLevel + 1)
                 self.enemyHealthLabel.text = "HP: \(self.enemyPokemon.pokemonHP)/\(MapViewController.MAX_HEALTH)"
                 self.enemyPokemon.pokemonHP = 100
@@ -282,8 +284,8 @@ class BattleViewController: UIViewController {
             if(self.myPokemon.pokemonHP <= 0){
                 
                 self.myPokemon.pokemonHP = 0
-                gameMessageLabel.text = "You lost. Go Back to Battle Map to revive."
-                self.userMoney -= 10
+                gameMessageLabel.text = "YOU LOST, AND LOSE $\(MapViewController.MONEY_LOST). GO BACK TO THE BATTLE MAP TO REVIVE."
+                self.userMoney -= MapViewController.MONEY_LOST
                 db.collection("users").document(documentID).setData([ "money": self.userMoney ], merge: true)
                 self.navigationItem.setHidesBackButton(false, animated: true)
                 //TODO: Deduct money
@@ -317,8 +319,8 @@ class BattleViewController: UIViewController {
         rotateAnimation.toValue = -Double.pi * 2 // end at 360
         
         
-        rotateAnimation.duration = 1
-        rotateAnimation.repeatCount = 4
+        rotateAnimation.duration = 0.5
+        rotateAnimation.repeatCount = 3
         
         //3. Add the BasicAnimation to the CAlayer
         layer1.add(rotateAnimation,forKey:nil)

@@ -54,24 +54,24 @@ class ViewController: UIViewController {
                 
                 if (user != nil) {
                     self.statusLabel.text = "You have created a login"
+                    self.ref = self.db.collection("users").addDocument(data: [
+                        "name": self.nameTextBox.text!,
+                        "money": 100,
+                        "email": self.emailTextBox.text!,
+                        "numWins": 0
+                    ]) { err in
+                        if let err = err {
+                            print("Error adding document: \(err)")
+                        } else {
+                            print("Document added with ID: \(self.ref!.documentID)")
+                        }
+                    }
                 }
                 else {
                     self.statusLabel.text = error?.localizedDescription
                 }
             }
             
-        }
-
-        ref = db.collection("users").addDocument(data: [
-            "name": nameTextBox.text!,
-            "money": 100,
-            "email": emailTextBox.text!
-        ]) { err in
-            if let err = err {
-                print("Error adding document: \(err)")
-            } else {
-                print("Document added with ID: \(self.ref!.documentID)")
-            }
         }
     }
     
