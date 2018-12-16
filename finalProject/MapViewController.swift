@@ -69,7 +69,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         let centerCoordinate = CLLocationCoordinate2DMake(longitudeValue,latitudeValue)
         
         // 2. Set the "zoom" level                      => span
-        let span = MKCoordinateSpan(latitudeDelta: 1, longitudeDelta: 1)
+        let span = MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5)
         
         // 3. Built the "view" -> (center & zoom)       => region
         let region = MKCoordinateRegion(center: centerCoordinate, span: span)
@@ -93,6 +93,18 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         let pin5 = MKPointAnnotation()
         let pin6 = MKPointAnnotation()
         
+        let personPin1 = MKPointAnnotation()
+        let personPin2 = MKPointAnnotation()
+        let personPin3 = MKPointAnnotation()
+        
+        let randomP1 = Float.random(in: -0.25 ... 0.6)
+        let randomP2 = Float.random(in: -0.05 ... 0.3)
+        let randomP3 = Float.random(in: -0.35 ... 0.75)
+        
+        let coordP1 = CLLocationCoordinate2DMake(longitudeValue-Double(randomP1),latitudeValue-Double(randomP1))
+        let coordP2 = CLLocationCoordinate2DMake(longitudeValue-Double(randomP2),latitudeValue-Double(randomP2))
+        let coordP3 = CLLocationCoordinate2DMake(longitudeValue-Double(randomP3),latitudeValue-Double(randomP3))
+        
         // 2. Set the coordinate of the Pin (CLLocationCoordinate)
         let coord = CLLocationCoordinate2DMake(longitudeValue,latitudeValue)
         let coord2 = CLLocationCoordinate2DMake(longitudeValue-Double(random),latitudeValue-Double(random))
@@ -101,12 +113,20 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         let coord5 = CLLocationCoordinate2DMake(longitudeValue-Double(random4),latitudeValue-Double(random4))
         let coord6 = CLLocationCoordinate2DMake(longitudeValue-Double(random5),latitudeValue-Double(random5))
         
+        personPin1.coordinate = coordP1
+        personPin2.coordinate = coordP2
+        personPin3.coordinate = coordP3
+        
         pin.coordinate = coord
         pin2.coordinate = coord2
         pin3.coordinate = coord3
         pin4.coordinate = coord4
         pin5.coordinate = coord5
         pin6.coordinate = coord6
+        
+        personPin1.title = "Xavier"
+        personPin2.title = "Johnny"
+        personPin3.title = "Mary"
         
         // 3. OPTIONAL: add a "bubble/popup"
         pin.title = self.myPokemon.pokemonName
@@ -123,6 +143,10 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         mapView.addAnnotation(pin4)
         mapView.addAnnotation(pin5)
         mapView.addAnnotation(pin6)
+        
+        mapView.addAnnotation(personPin1)
+        mapView.addAnnotation(personPin2)
+        mapView.addAnnotation(personPin3)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -329,6 +353,12 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "AnnotationView")
         if annotationView == nil {
             annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: "AnnotationView")
+        }
+        if (annotation.title == "Xavier") {
+            var image = UIImage(named: "player")
+            //TODO: Change the size of the image
+            
+            annotationView?.image = image
         }
         if annotation.title == self.myPokemon.pokemonName {
             annotationView?.image = self.pokemonImage.image
