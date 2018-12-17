@@ -3,7 +3,9 @@
 //  finalProject
 //
 //  Created by Mike Banks and Salim Elewa on 2018-12-06.
-//  Copyright © 2018 Salim Elewa. All rights reserved.
+// 991430406 and 991463094
+// Jenelle Chen PROG31975 Advanced Mobile App Development
+//  Copyright © 2018 Mike Banks and Salim Elewa. All rights reserved.
 //
 
 import UIKit

@@ -48,6 +48,10 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     var documentID:String!
     var numWins:Int!
     
+    var newImage:URL!
+    var newTitle:String!
+    
+    
     var myContext:NSManagedObjectContext!
     var db:Firestore!
     
@@ -69,7 +73,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         let centerCoordinate = CLLocationCoordinate2DMake(longitudeValue,latitudeValue)
         
         // 2. Set the "zoom" level                      => span
-        let span = MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5)
+        let span = MKCoordinateSpan(latitudeDelta: 1, longitudeDelta: 1)
         
         // 3. Built the "view" -> (center & zoom)       => region
         let region = MKCoordinateRegion(center: centerCoordinate, span: span)
@@ -237,13 +241,12 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         }
         let last = databaseResults.count - 1
         let newEnemey = databaseResults[last]
-        
-        
+        self.newImage = newEnemey.pokemonImage
         
         let latitudeValue = (latitude as NSString).doubleValue
         let longitudeValue = (longitude as NSString).doubleValue
         
-        let random = Float.random(in: 0.1 ... 0.2)
+        let random = Float.random(in: 0.11 ... 0.45)
         
         let pin = MKPointAnnotation()
 
@@ -254,7 +257,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         
         pin.coordinate = coord
 
-        
+        self.newTitle = newEnemey.pokemonName!
         // 3. OPTIONAL: add a "bubble/popup"
         pin.title = newEnemey.pokemonName!
 
@@ -431,6 +434,15 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         }
         else if  annotation.title == "Onix" {
             annotationView?.image = UIImage(data: pokemonImages[4])
+        }
+        else if  annotation.title == self.newTitle {
+            do{
+                let imgData:Data = try Data(contentsOf: newImage)
+                annotationView?.image = UIImage(data: imgData)
+            }
+            catch{
+                print("error")
+            }
         }
         annotationView?.canShowCallout = true
         return annotationView!
