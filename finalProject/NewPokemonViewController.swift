@@ -21,7 +21,7 @@ class NewPokemonViewController: UIViewController {
     
     @IBOutlet var infoLabel: UILabel!
     
-    let myContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    var myContext:NSManagedObjectContext!
 
     
     
@@ -29,7 +29,8 @@ class NewPokemonViewController: UIViewController {
         super.viewDidLoad()
         self.navigationItem.setHidesBackButton(true, animated: true)
 
-        // Do any additional setup after loading the view.
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+        myContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     }
     
 
@@ -63,13 +64,6 @@ class NewPokemonViewController: UIViewController {
                     pokemon.pokemonHP = 100
                     pokemon.pokemonLevel = 1
                     pokemon.pokemonEXP = 0
-                    do {
-                        try self.myContext.save()
-                        print("Saved!")
-                    } catch {
-                        print("Error Saving!")
-                    }
-                    self.navigationItem.setHidesBackButton(false, animated: true)
                     
                     do {
                         let imgData:Data = try Data(contentsOf: imageURL)
@@ -78,6 +72,15 @@ class NewPokemonViewController: UIViewController {
                     } catch {
                         print("error")
                     }
+                    
+                    do {
+                        try self.myContext.save()
+                        print("Saved!")
+                    } catch {
+                        print("Error Saving!")
+                    }
+                    self.navigationItem.setHidesBackButton(false, animated: true)
+                    
                     
                 }
                 else if(response.result.isFailure){

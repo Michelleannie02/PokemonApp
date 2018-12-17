@@ -151,6 +151,21 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         
+        var databaseResults = [Pokemon]()
+        let fetchRequest:NSFetchRequest<Pokemon> = Pokemon.fetchRequest()
+        
+        do {
+            databaseResults = try myContext.fetch(fetchRequest)
+        } catch {
+            print("Cannot Fetch!")
+        }
+        
+        for pokemon in databaseResults {
+            if (self.selectedPokemonName == pokemon.pokemonName) {
+                self.myPokemon = pokemon
+            }
+        }
+        /*
         do {
             let imgData:Data = try Data(contentsOf: myPokemon.pokemonImage!)
             self.pokemonImage.image = UIImage(data: imgData)
@@ -158,7 +173,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             print("error")
         }
         print(myPokemon.pokemonImage!)
-        
+      */
         if (self.myPokemon.pokemonEXP >= Int16(MapViewController.MAX_EXP)) {
             self.myPokemon.pokemonEXP = Int16(MapViewController.MAX_EXP)
             pokemonLevelUpButton.isEnabled = true
@@ -366,7 +381,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             var image = UIImage(named: "player")
             //TODO: Change the size of the image
             
-            annotationView?.image = image
+            //annotationView?.image = image
         }
         if annotation.title == self.myPokemon.pokemonName {
             annotationView?.image = self.pokemonImage.image
