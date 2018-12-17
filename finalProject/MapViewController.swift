@@ -150,30 +150,9 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        loadNewPokemon()
         
-        var databaseResults = [Pokemon]()
-        let fetchRequest:NSFetchRequest<Pokemon> = Pokemon.fetchRequest()
         
-        do {
-            databaseResults = try myContext.fetch(fetchRequest)
-        } catch {
-            print("Cannot Fetch!")
-        }
-        
-        for pokemon in databaseResults {
-            if (self.selectedPokemonName == pokemon.pokemonName) {
-                self.myPokemon = pokemon
-            }
-        }
-        /*
-        do {
-            let imgData:Data = try Data(contentsOf: myPokemon.pokemonImage!)
-            self.pokemonImage.image = UIImage(data: imgData)
-        } catch {
-            print("error")
-        }
-        print(myPokemon.pokemonImage!)
-      */
         if (self.myPokemon.pokemonEXP >= Int16(MapViewController.MAX_EXP)) {
             self.myPokemon.pokemonEXP = Int16(MapViewController.MAX_EXP)
             pokemonLevelUpButton.isEnabled = true
@@ -246,6 +225,45 @@ class MapViewController: UIViewController, MKMapViewDelegate {
 
     }
     
+    func loadNewPokemon(){
+        
+        var databaseResults = [Pokemon]()
+        let fetchRequest:NSFetchRequest<Pokemon> = Pokemon.fetchRequest()
+        
+        do {
+            databaseResults = try myContext.fetch(fetchRequest)
+        } catch {
+            print("Cannot Fetch!")
+        }
+        let last = databaseResults.count - 1
+        let newEnemey = databaseResults[last]
+        
+        
+        
+        let latitudeValue = (latitude as NSString).doubleValue
+        let longitudeValue = (longitude as NSString).doubleValue
+        
+        let random = Float.random(in: 0.1 ... 0.2)
+        
+        let pin = MKPointAnnotation()
+
+        
+        // 2. Set the coordinate of the Pin (CLLocationCoordinate)
+        let coord = CLLocationCoordinate2DMake(longitudeValue,latitudeValue)
+
+        
+        pin.coordinate = coord
+
+        
+        // 3. OPTIONAL: add a "bubble/popup"
+        pin.title = newEnemey.pokemonName!
+
+        
+        // 4. Add the pin to the map
+        mapView.addAnnotation(pin)
+    }
+    
+    
     func loadPokemonImages() {
         
         //MARK: Getting Images for the random pokemons
@@ -306,7 +324,15 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         
         var databaseResults = [Pokemon]()
         let fetchRequest:NSFetchRequest<Pokemon> = Pokemon.fetchRequest()
+        let deleteFetch = NSFetchRequest<NSFetchRequestResult>(entityName: "Pokemon")
+        let deleteRequest = NSBatchDeleteRequest(fetchRequest: deleteFetch)
         
+        do {
+            try myContext.execute(deleteRequest)
+            try myContext.save()
+        } catch {
+            print ("There was an error")
+        }
         do {
             databaseResults = try myContext.fetch(fetchRequest)
         } catch {
@@ -318,6 +344,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                 self.myPokemon = pokemon
             }
         }
+        
         
         do {
         
