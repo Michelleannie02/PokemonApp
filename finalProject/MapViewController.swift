@@ -51,6 +51,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     var newImage:URL!
     var newTitle:String!
     
+    var pokemonAdded:Bool!
     
     var myContext:NSManagedObjectContext!
     var db:Firestore!
@@ -73,7 +74,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         let centerCoordinate = CLLocationCoordinate2DMake(longitudeValue,latitudeValue)
         
         // 2. Set the "zoom" level                      => span
-        let span = MKCoordinateSpan(latitudeDelta: 1, longitudeDelta: 1)
+        let span = MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5)
         
         // 3. Built the "view" -> (center & zoom)       => region
         let region = MKCoordinateRegion(center: centerCoordinate, span: span)
@@ -154,8 +155,11 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        loadNewPokemon()
         
+        if (pokemonAdded == true) {
+         loadNewPokemon()
+            pokemonAdded = false
+        }
         
         if (self.myPokemon.pokemonEXP >= Int16(MapViewController.MAX_EXP)) {
             self.myPokemon.pokemonEXP = Int16(MapViewController.MAX_EXP)
@@ -246,14 +250,12 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         let latitudeValue = (latitude as NSString).doubleValue
         let longitudeValue = (longitude as NSString).doubleValue
         
-        let random = Float.random(in: 0.11 ... 0.45)
+        let random = Double.random(in: 0.11 ... 0.45)
         
         let pin = MKPointAnnotation()
-
         
         // 2. Set the coordinate of the Pin (CLLocationCoordinate)
-        let coord = CLLocationCoordinate2DMake(longitudeValue,latitudeValue)
-
+        let coord = CLLocationCoordinate2DMake((longitudeValue + random),(latitudeValue + random))
         
         pin.coordinate = coord
 
@@ -261,7 +263,6 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         // 3. OPTIONAL: add a "bubble/popup"
         pin.title = newEnemey.pokemonName!
 
-        
         // 4. Add the pin to the map
         mapView.addAnnotation(pin)
     }
@@ -315,7 +316,8 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         mapView.delegate = self
         db = Firestore.firestore()
         //self.userInfoLabel.text = "Player: \(self.userName!)\nMoney: $\(self.userMoney!)"
-
+        
+        pokemonAdded = false
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
         myContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
         
@@ -567,7 +569,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             let leaderboardController = segue.destination as! LeaderboardTableViewController
             leaderboardController.users = self.users
         } else {
-            
+            pokemonAdded = true
         }
         
     }
