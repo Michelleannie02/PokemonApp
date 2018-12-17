@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		06095A2F21C729BB000259E5 /* NewPokemonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06095A2E21C729BB000259E5 /* NewPokemonViewController.swift */; };
 		067BF7FD21BA466400DFB1E4 /* BattleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 067BF7FC21BA466400DFB1E4 /* BattleViewController.swift */; };
 		06BC624121B984A5002BDEEA /* PokemonSelectorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06BC624021B984A5002BDEEA /* PokemonSelectorController.swift */; };
 		06E423E521B966A10069EC08 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06E423E421B966A10069EC08 /* AppDelegate.swift */; };
@@ -23,6 +24,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		06095A2E21C729BB000259E5 /* NewPokemonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPokemonViewController.swift; sourceTree = "<group>"; };
 		067BF7FC21BA466400DFB1E4 /* BattleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattleViewController.swift; sourceTree = "<group>"; };
 		06BC624021B984A5002BDEEA /* PokemonSelectorController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonSelectorController.swift; sourceTree = "<group>"; };
 		06E423E121B966A10069EC08 /* finalProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = finalProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -86,6 +88,7 @@
 				067BF7FC21BA466400DFB1E4 /* BattleViewController.swift */,
 				367A4C4821C6E5DB00791517 /* LeaderboardTableViewController.swift */,
 				367A4C4A21C6FD1900791517 /* User.swift */,
+				06095A2E21C729BB000259E5 /* NewPokemonViewController.swift */,
 			);
 			path = finalProject;
 			sourceTree = "<group>";
@@ -308,6 +311,7 @@
 				067BF7FD21BA466400DFB1E4 /* BattleViewController.swift in Sources */,
 				06E423E721B966A10069EC08 /* ViewController.swift in Sources */,
 				367A4C4921C6E5DB00791517 /* LeaderboardTableViewController.swift in Sources */,
+				06095A2F21C729BB000259E5 /* NewPokemonViewController.swift in Sources */,
 				06E423ED21B966A10069EC08 /* finalProject.xcdatamodeld in Sources */,
 				367A4C4B21C6FD1900791517 /* User.swift in Sources */,
 				06E423E521B966A10069EC08 /* AppDelegate.swift in Sources */,

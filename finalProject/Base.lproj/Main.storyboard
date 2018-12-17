@@ -402,6 +402,61 @@
             </objects>
             <point key="canvasLocation" x="1544.9275362318842" y="18.75"/>
         </scene>
+        <!--New Pokemon View Controller-->
+        <scene sceneID="z8A-5O-5i1">
+            <objects>
+                <viewController id="LHF-w6-6aR" customClass="NewPokemonViewController" customModule="finalProject" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="6GN-lH-qBN">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dz2-yB-E4j">
+                                <rect key="frame" x="198" y="156" width="196" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Enter Pokemon Name:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E0p-m1-UGK">
+                                <rect key="frame" x="20" y="161" width="170" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7fx-DG-rdf">
+                                <rect key="frame" x="152" y="242" width="110" height="110"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b7r-M6-xNn">
+                                <rect key="frame" x="167" y="204" width="81" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Download it"/>
+                                <connections>
+                                    <action selector="downloadPokemonPressed:" destination="LHF-w6-6aR" eventType="touchUpInside" id="NzX-Mu-Lxz"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Text" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y2M-Da-LJl">
+                                <rect key="frame" x="87" y="360" width="240" height="33"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="Pkb-vH-ySp"/>
+                    </view>
+                    <connections>
+                        <outlet property="infoLabel" destination="y2M-Da-LJl" id="pj7-wf-CeW"/>
+                        <outlet property="pokemonImage" destination="7fx-DG-rdf" id="drb-hC-l0D"/>
+                        <outlet property="pokemonName" destination="dz2-yB-E4j" id="Y85-CG-hAh"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0h0-Ys-bkG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2398.5507246376815" y="701.78571428571422"/>
+        </scene>
         <!--Battle Map-->
         <scene sceneID="Ni2-cV-qdS">
             <objects>
@@ -492,7 +547,11 @@
                         <viewLayoutGuide key="safeArea" id="WvI-HQ-hun"/>
                     </view>
                     <navigationItem key="navigationItem" title="Battle Map" id="BjO-65-4eb">
-                        <barButtonItem key="rightBarButtonItem" title="Add Pokemon" style="done" id="W5e-kN-v0q"/>
+                        <barButtonItem key="rightBarButtonItem" title="Add Pokemon" style="done" id="W5e-kN-v0q">
+                            <connections>
+                                <action selector="addNewPokemonPressed:" destination="pR0-fR-Q3W" id="atP-dm-5U8"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="mapView" destination="5nb-rz-zFq" id="rQw-Zo-viJ"/>
@@ -506,6 +565,7 @@
                         <outlet property="userInfoLabel" destination="4kk-wp-bli" id="e2z-gw-ZJw"/>
                         <segue destination="XCS-TM-yi1" kind="show" identifier="battle" id="yKv-lI-g1H"/>
                         <segue destination="iP1-It-VHg" kind="show" identifier="segueLeaderboards" id="Xzn-aZ-5vo"/>
+                        <segue destination="LHF-w6-6aR" kind="show" identifier="segueNewPokemon" id="uDD-bK-4Yp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="k4T-uJ-zg7" userLabel="First Responder" sceneMemberID="firstResponder"/>

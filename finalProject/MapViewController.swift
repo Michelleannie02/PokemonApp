@@ -151,6 +151,14 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         
+        do {
+            let imgData:Data = try Data(contentsOf: myPokemon.pokemonImage!)
+            self.pokemonImage.image = UIImage(data: imgData)
+        } catch {
+            print("error")
+        }
+        print(myPokemon.pokemonImage!)
+        
         if (self.myPokemon.pokemonEXP >= Int16(MapViewController.MAX_EXP)) {
             self.myPokemon.pokemonEXP = Int16(MapViewController.MAX_EXP)
             pokemonLevelUpButton.isEnabled = true
@@ -220,7 +228,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                 
             }
         }
-        
+
     }
     
     func loadPokemonImages() {
@@ -474,6 +482,14 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         }
     }
     
+    
+    @IBAction func addNewPokemonPressed(_ sender: Any) {
+        //segueNewPokemon
+        performSegue(withIdentifier: "segueNewPokemon", sender: self)
+
+    }
+    
+    
     @IBAction func onLeaderboardsPress(_ sender: Any) {
         performSegue(withIdentifier: "segueLeaderboards", sender: self)
     }
@@ -490,8 +506,8 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             battleViewController.numWins = self.numWins
         } else {
             
-            let leaderboardController = segue.destination as! LeaderboardTableViewController
-            leaderboardController.users = self.users
+//            let leaderboardController = segue.destination as! LeaderboardTableViewController
+//            leaderboardController.users = self.users
         }
         
     }
