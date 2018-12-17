@@ -404,11 +404,15 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         if annotationView == nil {
             annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: "AnnotationView")
         }
-        if (annotation.title == "Xavier") {
+        if (annotation.title == "Xavier" || annotation.title == "Johnny" || annotation.title == "Mary") {
             var image = UIImage(named: "player")
-            //TODO: Change the size of the image
             
-            //annotationView?.image = image
+            let size = CGSize(width: 75, height: 75)
+            UIGraphicsBeginImageContext(size)
+            image!.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
+            let resizedImage = UIGraphicsGetImageFromCurrentImageContext()
+            
+            annotationView?.image = resizedImage
         }
         if annotation.title == self.myPokemon.pokemonName {
             annotationView?.image = self.pokemonImage.image
@@ -546,10 +550,12 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             battleViewController.documentID = self.documentID
             battleViewController.userMoney = self.userMoney
             battleViewController.numWins = self.numWins
+        } else if (segue.identifier == "segueLeaderboards") {
+            
+            let leaderboardController = segue.destination as! LeaderboardTableViewController
+            leaderboardController.users = self.users
         } else {
             
-//            let leaderboardController = segue.destination as! LeaderboardTableViewController
-//            leaderboardController.users = self.users
         }
         
     }
